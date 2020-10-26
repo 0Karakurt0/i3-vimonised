@@ -30,11 +30,11 @@ bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 # Controlling notifications
 bindsym Control+$win+space exec dunstctl context
-bindsym $win+Control+l exec $locker
 #============================
 
 #======= Main modes ==========
 mode "delete" {
+    # repeating
     bindsym $win+1 exec ~/.config/i3/i3_repeater.sh 1
     bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
     bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
@@ -44,6 +44,7 @@ mode "delete" {
     bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
+    # Keys
     bindsym $win+w  mode "default"; kill
     bindsym $win+d  mode "default";focus parent,kill
     bindsym $win+a  mode "default";[workspace=$ws1] kill
@@ -53,6 +54,7 @@ mode "delete" {
     }
 
 mode "move" {
+    # Repeating
     bindsym $win+1 exec ~/.config/i3/i3_repeater.sh 1
     bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
     bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
@@ -62,21 +64,24 @@ mode "move" {
     bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
+    # Keys
     bindsym $win+t mode "move_to"
     bindsym $win+s mode "move_workspace"
+    bindsym $win+f floating toggle; mode "default"
     bindsym $win+h move left
     bindsym $win+j move down
     bindsym $win+k move up
     bindsym $win+l move right
+    # Same with arrows
     bindsym $win+Left move left
     bindsym $win+Down move down
     bindsym $win+Up move up
     bindsym $win+Right move right
-    bindsym $win+f floating toggle; mode "default"
     bindsym Escape mode "default"
     }
 
 mode "go" {
+    # Repeating
     bindsym $win+1 exec ~/.config/i3/i3_repeater.sh 1
     bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
     bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
@@ -86,41 +91,44 @@ mode "go" {
     bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
+    # Keys
     bindsym $win+s mode "go_workspace"
     bindsym $win+w mode "go_window"
+    bindsym $win+p focus prev ; mode "default"
+    bindsym $win+n focus next; mode "default"
+    bindsym $win+f focus mode_toggle; mode "default"
     bindsym $win+h focus left; mode "default"
     bindsym $win+j focus down; mode "default"
     bindsym $win+k focus up; mode "default"
     bindsym $win+l focus right; mode "default"
+    # Same with arrows
     bindsym $win+Left focus left; mode "default"
     bindsym $win+Down focus down; mode "default"
     bindsym $win+Up focus up; mode "default"
     bindsym $win+Right focus right; mode "default"
-    bindsym $win+p focus prev ; mode "default"
-    bindsym $win+n focus next; mode "default"
-    bindsym $win+f focus mode_toggle; mode "default"
     bindsym Escape mode "default"
 }
 
 mode "resize" {
-  bindsym $win+h resize shrink width 1; mode "default"
-  bindsym $win+j resize shrink height 1; mode "default"
-  bindsym $win+k resize grow height 1; mode "default"
-  bindsym $win+l resize grow width 1; mode "default"
-  # more numbers 
-  bindsym $win+1 mode "r1" 
-  bindsym $win+2 mode "r2" 
-  bindsym $win+3 mode "r3" 
-  bindsym $win+4 mode "r4" 
-  bindsym $win+5 mode "r5" 
-  bindsym $win+6 mode "r6" 
-  bindsym $win+7 mode "r7" 
-  bindsym $win+8 mode "r8" 
-  bindsym $win+9 mode "r9" 
-  bindsym Escape mode "default"
+    bindsym $win+h resize shrink width 1; mode "default"
+    bindsym $win+j resize shrink height 1; mode "default"
+    bindsym $win+k resize grow height 1; mode "default"
+    bindsym $win+l resize grow width 1; mode "default"
+    # more numbers 
+    bindsym $win+1 mode "r1" 
+    bindsym $win+2 mode "r2" 
+    bindsym $win+3 mode "r3" 
+    bindsym $win+4 mode "r4" 
+    bindsym $win+5 mode "r5" 
+    bindsym $win+6 mode "r6" 
+    bindsym $win+7 mode "r7" 
+    bindsym $win+8 mode "r8" 
+    bindsym $win+9 mode "r9" 
+    bindsym Escape mode "default"
 }
 
 mode "launch" {
+    # Repeating
     bindsym $win+1 exec ~/.config/i3/i3_repeater.sh 1
     bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
     bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
@@ -130,6 +138,7 @@ mode "launch" {
     bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
+    # Programs to launch
     bindsym $win+t mode "default"; exec $term
     bindsym Escape mode "default"
     }
