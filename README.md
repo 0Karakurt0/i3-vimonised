@@ -1,12 +1,19 @@
 Configuration for i3 with vim philosophy
- What is working
-  Delete
+
+
+ What is working 
+ 
+  Delete 
   dw(window), dd (parent), da(all), dn(notification), dN(all notifications)
+  
   Move:
   mh, mj, mk, ml, mf(to floating)
+  
   Go:
   gh, gj, gk, gl, gp(previous), gn(next), gf(to floating)
+  
   lt(launch terminal)
+  
   Resize:
   rNh, rNj, rNk, rNl where N in a number up to 2000
  
