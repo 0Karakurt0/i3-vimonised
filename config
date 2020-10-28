@@ -1,5 +1,4 @@
 #========= Variables =========
-#test
 set $win Mod4
 set $alt Mod1
 set $ws1 "1"
@@ -15,12 +14,22 @@ set $ws0 "0"
 set $locker i3lock -i ~/.config/i3/bg.png
 set $term kitty
 set $menu dmenu -i -l 10
-set $notify-bar /tmp/xobpipe
+set $notify-bar /tmp/i3/xobpipe
 set $notify-bar-program xob
 set $filemanager kitty -e ranger
 set $browser qutebrowser
 set $launcher dmenu_run
 set $bar ~/.config/polybar/launch.sh
+#============================
+
+#======== Autostart =========
+exec nm-applet
+exec kotatogram-desktop
+exec $browser
+exec --no-startup-id dunst
+exec_always --no-startup-id $bar
+exec_always --no-startup-id mkdir /tmp/i3; touch /tmp/i3/last_action
+exec_always --no-startup-id mkfifo $notify-bar && tail -f $notify-bar | $notify-bar-program
 #============================
 
 #========== Rules ===========
@@ -34,15 +43,6 @@ assign [instance="qutebrowser"] $ws2
 floating_modifier $win
 gaps inner 6
 smart_gaps true
-#============================
-
-#======== Autostart =========
-exec nm-applet
-exec kotatogram-desktop
-exec $browser
-exec --no-startup-id dunst
-exec_always --no-startup-id $bar
-exec_always --no-startup-id mkfifo $notify-bar && tail -f $notify-bar | $notify-bar-program
 #============================
 
 #====== Starting keys ========
@@ -199,6 +199,7 @@ mode "system" {
     bindsym $win+s mode "default"; split toggle
     bindsym $win+m mode "default"; exec dunstctl context
     bindsym $win+r mode "default"; restart
+    bindsym $win+l mode "default"; layout toggle
     bindsym Escape mode "default"
     }
 #=============================
