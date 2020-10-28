@@ -15,6 +15,7 @@ set $locker i3lock -i ~/.config/i3/bg.png
 set $term kitty
 set $menu dmenu -i -l 10
 set $notify-bar /tmp/i3/xobpipe
+set $last_action /tmp/i3/last_action
 set $notify-bar-program xob
 set $filemanager kitty -e ranger
 set $browser qutebrowser
@@ -28,7 +29,8 @@ exec kotatogram-desktop
 exec $browser
 exec --no-startup-id dunst
 exec_always --no-startup-id $bar
-exec_always --no-startup-id mkdir /tmp/i3; touch /tmp/i3/last_action
+exec_always --no-startup-id mkdir /tmp/i3; touch $last_action
+exec_always --no-startup-id ~/.config/i3/i3-last_action.sh --start $last_action
 exec_always --no-startup-id mkfifo $notify-bar && tail -f $notify-bar | $notify-bar-program
 #============================
 
@@ -53,19 +55,29 @@ bindsym $win+g mode "go"
 bindsym $win+r exec i3-input -F 'exec ~/.config/i3/i3-resizer.sh %s'
 bindsym $win+l mode "launch"
 bindsym $win+s mode "system"
+bindsym $win+period exec i3-msg $(~/.config/i3/i3-last_action.sh --get $last_action)
 bindsym $win+Shift+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 bindsym $win+Shift+g mode "default";workspace $ws0
-bindsym $win+Return exec $kitty
+bindsym $win+Return exec $term
+bindsym $win+Left focus left
+bindsym $win+Down focus down
+bindsym $win+Up focus up
+bindsym $win+Right focus right
 #=============================
 
 #======= System keys ========
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec pamixer -ui 5
-bindsym XF86AudioLowerVolume exec pamixer -ud 5
-bindsym XF86AudioMute exec pamixer --toggle-mute
+bindsym XF86AudioRaiseVolume exec pamixer -ui 5 && pamixer --get-volume > $notify-bar
+bindsym XF86AudioLowerVolume exec pamixer -ud 5 && pamixer --get-volume > $notify-bar
+bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $notify-bar ) || pamixer --get-volume > $notify-bar
 # Controlling brightness
-bindsym XF86MonBrightnessUp exec light -A 5
-bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $notify-bar
+bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $notify-bar
+# Controlling notifications
+bindsym Control+space exec dunstctl close
+bindsym Control+Shift+space exec dunstctl close-all
+bindsym Control+$win+space exec dunstctl context
+bindsym $win+Control+l exec $locker
 #============================
 
 #======= Main modes ==========
@@ -198,7 +210,7 @@ mode "system" {
     # Keys
     bindsym $win+s mode "default"; split toggle
     bindsym $win+m mode "default"; exec dunstctl context
-    bindsym $win+r mode "default"; restart
+    bindsym $win+r mode "default"; exec ~/.config/i3/i3-last_action.sh --clean $last_action; restart
     bindsym $win+l mode "default"; layout toggle
     bindsym Escape mode "default"
     }
