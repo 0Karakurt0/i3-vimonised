@@ -1,12 +1,48 @@
-#======== Varuables ==========
+#========= Variables =========
 set $win Mod4
+set $alt Mod1
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "0"
+set $locker i3lock -i ~/.config/i3/bg.png
 set $term kitty
-#=============================
+set $menu dmenu -i -l 10
+set $notify-bar /tmp/xobpipe
+set $notify-bar-program xob
+set $filemanager kitty -e ranger
+set $browser qutebrowser
+set $launcher dmenu_run
+set $bar ~/.config/polybar/launch.sh
+#============================
 
-#======= Autostart ===========
+#========== Rules ===========
+default_border pixel 2
+for_window [title="dialog"] mode floating
+for_window [instance="gl"] mode floating # making mpv float
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+assign [instance="kotatogram-desktop"] $ws4
+assign [instance="qutebrowser"] $ws2
+floating_modifier $win
+gaps inner 6
+smart_gaps true
+#============================
+
+#======== Autostart =========
+exec nm-applet
+exec kotatogram-desktop
+exec $browser
 exec --no-startup-id dunst
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-#=============================
+exec_always --no-startup-id $bar
+exec_always --no-startup-id mkfifo $notify-bar && tail -f $notify-bar | $notify-bar-program
+#============================
 
 #====== Starting keys ========
 bindsym $win+q exit
@@ -15,9 +51,10 @@ bindsym $win+m mode "move"
 bindsym $win+g mode "go"
 bindsym $win+r mode "resize"
 bindsym $win+l mode "launch"
-bindsym $win+i exec dmenu_run
-bindsym $win+s split toggle
-bindsym $win+Return exec kitty
+bindsym $win+s mode "system"
+bindsym $win+Shift+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $win+Shift+g mode "default";workspace $ws0
+bindsym $win+Return exec $kitty
 #=============================
 
 #======= System keys ========
@@ -28,8 +65,6 @@ bindsym XF86AudioMute exec pamixer --toggle-mute
 # Controlling brightness
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
-# Controlling notifications
-bindsym Control+$win+space exec dunstctl context
 #============================
 
 #======= Main modes ==========
@@ -94,6 +129,8 @@ mode "go" {
     # Keys
     bindsym $win+s mode "go_workspace"
     bindsym $win+w mode "go_window"
+    bindsym $win+g mode "default";workspace $ws1
+    bindsym $mod+m exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: '
     bindsym $win+p focus prev ; mode "default"
     bindsym $win+n focus next; mode "default"
     bindsym $win+f focus mode_toggle; mode "default"
@@ -140,11 +177,63 @@ mode "launch" {
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
     # Programs to launch
     bindsym $win+t mode "default"; exec $term
+    bindsym $win+f mode "default"; exec $filemanager
+    bindsym $win+b mode "default"; exec $browser
+    bindsym $win+l mode "default"; exec $launcher
+    bindsym Escape mode "default"
+    }
+
+mode "system" {
+    # Repeating
+    bindsym $win+1 exec ~/.config/i3/i3_repeater.sh 1
+    bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
+    bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
+    bindsym $win+4 exec ~/.config/i3/i3_repeater.sh 4
+    bindsym $win+5 exec ~/.config/i3/i3_repeater.sh 5
+    bindsym $win+6 exec ~/.config/i3/i3_repeater.sh 6
+    bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
+    bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
+    bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
+    # Keys
+    bindsym $win+s mode "default"; split toggle
+    bindsym $win+m mode "default"; exec dunstctl context
+    bindsym $win+r mode "default"; restart
     bindsym Escape mode "default"
     }
 #=============================
 
 
+#=============================
+
+mode "go_workspace" {
+    bindsym $win+1 mode "default";workspace $ws1
+    bindsym $win+2 mode "default";workspace $ws2
+    bindsym $win+3 mode "default";workspace $ws3
+    bindsym $win+4 mode "default";workspace $ws4
+    bindsym $win+5 mode "default";workspace $ws5
+    bindsym $win+6 mode "default";workspace $ws6
+    bindsym $win+7 mode "default";workspace $ws7
+    bindsym $win+8 mode "default";workspace $ws8
+    bindsym $win+9 mode "default";workspace $ws9
+    bindsym $win+0 mode "default";workspace $ws0
+    bindsym Escape mode "default"
+}
+
+mode "move_workspace" {
+    bindsym $win+1 mode "default"; move container to workspace $ws1
+    bindsym $win+2 mode "default"; move container to workspace $ws2
+    bindsym $win+3 mode "default"; move container to workspace $ws3
+    bindsym $win+4 mode "default"; move container to workspace $ws4
+    bindsym $win+5 mode "default"; move container to workspace $ws5
+    bindsym $win+6 mode "default"; move container to workspace $ws6
+    bindsym $win+7 mode "default"; move container to workspace $ws7
+    bindsym $win+8 mode "default"; move container to workspace $ws8
+    bindsym $win+9 mode "default"; move container to workspace $ws9
+    bindsym $win+0 mode "default"; move container to workspace $ws0
+    bindsym Escape mode "default"
+}
+
+#=============================
 
 
 
