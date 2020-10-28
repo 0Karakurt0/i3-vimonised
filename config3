@@ -1,16 +1,16 @@
 #========= Variables =========
 set $win Mod4
 set $alt Mod1
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
+set $ws1 "Main"
+set $ws2 "Second"
+set $ws3 "Browser"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws0 "0"
+set $ws0 "Social"
 set $locker i3lock -i ~/.config/i3/bg.png
 set $term kitty
 set $menu dmenu -i -l 10
@@ -51,7 +51,7 @@ bindsym $win+m mode "move"
 bindsym $win+g mode "go"
 bindsym $win+r mode "resize"
 bindsym $win+l mode "launch"
-bindsym $win+s mode "system"
+bindsym $win+Shift+semicolon mode "system"
 bindsym $win+Shift+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 bindsym $win+Shift+g mode "default";workspace $ws0
 bindsym $win+Return exec $kitty
