@@ -55,6 +55,7 @@ bindsym $win+g mode "go"
 bindsym $win+r exec i3-input -F 'exec ~/.config/i3/i3-resizer.sh %s'
 bindsym $win+l mode "launch"
 bindsym $win+s mode "system"
+bindsym $win+i exec $launcher
 bindsym $win+period exec i3-msg $(~/.config/i3/i3-last_action.sh --get $last_action)
 bindsym $win+Shift+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 bindsym $win+Shift+g mode "default";workspace $ws0
