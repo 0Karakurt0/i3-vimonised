@@ -40,7 +40,7 @@ for_window [title="dialog"] mode floating
 for_window [instance="gl"] mode floating # making mpv float
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
-assign [instance="kotatogram-desktop"] $ws4
+assign [instance="kotatogram-desktop"] $ws0
 assign [instance="qutebrowser"] $ws2
 floating_modifier $win
 gaps inner 6
@@ -94,9 +94,9 @@ mode "delete" {
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
     # Keys
-    bindsym $win+w  mode "default"; kill
-    bindsym $win+d  mode "default";focus parent,kill
-    bindsym $win+a  mode "default";[workspace=$ws1] kill
+    bindsym $win+w mode "default"; kill
+    bindsym $win+d mode "default";focus parent,kill
+    bindsym $win+a mode "default";[workspace=$ws1] kill
     bindsym $win+n exec dunstctl close
     bindsym $win+Shift+n exec dunstctl close-all
     bindsym Escape mode "default"
@@ -116,7 +116,8 @@ mode "move" {
     # Keys
     bindsym $win+t mode "move_to"
     bindsym $win+s mode "move_workspace"
-    bindsym $win+f floating toggle; mode "default"
+    bindsym $win+f mode "default"; floating toggle
+    bindsym $win+w mode "default"; fullscreen toggle
     bindsym $win+h move left
     bindsym $win+j move down
     bindsym $win+k move up
@@ -135,7 +136,7 @@ mode "go" {
     bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
     bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
     bindsym $win+4 exec ~/.config/i3/i3_repeater.sh 4
-    bindsym $win+5 exec ~/.config/i3/i3_repeater.sh 5
+    bindsym $win+5 exec ~/.config/i3/i3_repeaterh 5
     bindsym $win+6 exec ~/.config/i3/i3_repeater.sh 6
     bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
@@ -157,24 +158,6 @@ mode "go" {
     bindsym $win+Down focus down; mode "default"
     bindsym $win+Up focus up; mode "default"
     bindsym $win+Right focus right; mode "default"
-    bindsym Escape mode "default"
-}
-
-mode "resize" {
-    bindsym $win+h resize shrink width 1; mode "default"
-    bindsym $win+j resize shrink height 1; mode "default"
-    bindsym $win+k resize grow height 1; mode "default"
-    bindsym $win+l resize grow width 1; mode "default"
-    # more numbers 
-    bindsym $win+1 mode "r1" 
-    bindsym $win+2 mode "r2" 
-    bindsym $win+3 mode "r3" 
-    bindsym $win+4 mode "r4" 
-    bindsym $win+5 mode "r5" 
-    bindsym $win+6 mode "r6" 
-    bindsym $win+7 mode "r7" 
-    bindsym $win+8 mode "r8" 
-    bindsym $win+9 mode "r9" 
     bindsym Escape mode "default"
 }
 
