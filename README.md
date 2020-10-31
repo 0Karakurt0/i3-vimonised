@@ -1,5 +1,5 @@
 # Configuration for i3 with vim philosophy
-`
+```
 ├──d
 │  ├──[1-9]     starts a script to repeat next i3 command N times
 │  ├──p         delete parent
@@ -62,7 +62,7 @@
 │  ├──a         delete all windows on a workspace
 │  ├──n         delete notification
 │  └──N         delete all notifications
-`
+```
   Delete 
   dw(window), dd (parent), da(all), dn(notification), dN(all notifications)
   
