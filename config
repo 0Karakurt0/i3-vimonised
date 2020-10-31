@@ -11,23 +11,23 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws0 "0"
-set $locker i3lock -i ~/.config/i3/bg.png
-set $term kitty
-set $menu dmenu -i -l 10
-set $notify-bar /tmp/i3/xobpipe
-set $last_action /tmp/i3/last_action
+set $locker             i3lock -i ~/.config/i3/bg.png
+set $term               kitty
+set $menu               dmenu -i -l 10
+set $notify-bar         /tmp/i3/xobpipe
+set $last_action        /tmp/i3/last_action
 set $notify-bar-program xob
-set $filemanager kitty -e ranger
-set $browser qutebrowser
-set $launcher dmenu_run
-set $bar ~/.config/polybar/launch.sh
+set $filemanager        kitty -e ranger
+set $browser            qutebrowser
+set $launcher           dmenu_run
+set $bar                ~/.config/polybar/launch.sh
 #============================
 
 #======== Autostart =========
-exec nm-applet
-exec kotatogram-desktop
-exec $browser
-exec --no-startup-id dunst
+exec                        nm-applet
+exec                        kotatogram-desktop
+exec                        $browser
+exec --no-startup-id        dunst
 exec_always --no-startup-id $bar
 exec_always --no-startup-id mkdir /tmp/i3; touch $last_action
 exec_always --no-startup-id ~/.config/i3/i3-last_action.sh --start $last_action
@@ -48,22 +48,21 @@ smart_gaps true
 #============================
 
 #====== Starting keys ========
-bindsym $win+q exit
-bindsym $win+d mode "delete"
-bindsym $win+m mode "move"
-bindsym $win+g mode "go"
-bindsym $win+r exec i3-input -F 'exec ~/.config/i3/i3-resizer.sh %s'
-bindsym $win+l mode "launch"
-bindsym $win+s mode "system"
-bindsym $win+i exec $launcher
-bindsym $win+period exec i3-msg $(~/.config/i3/i3-last_action.sh --get $last_action)
-bindsym $win+Shift+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
-bindsym $win+Shift+g mode "default";workspace $ws0
-bindsym $win+Return exec $term
-bindsym $win+Left focus left
-bindsym $win+Down focus down
-bindsym $win+Up focus up
-bindsym $win+Right focus right
+bindsym $win+q             exit
+bindsym $win+d             mode "delete"
+bindsym $win+m             mode "move"
+bindsym $win+g             mode "go"
+bindsym $win+r             exec i3-input -F 'exec ~/.config/i3/i3-resizer.sh %s'
+bindsym $win+l             mode "launch"
+bindsym $win+s             mode "system"
+bindsym $win+period        exec i3-msg $(~/.config/i3/i3-last_action.sh --get $last_action)
+bindsym $win+Shift+m       exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $win+Shift+g       mode "default";workspace $ws0
+bindsym $win+Return        exec $term
+bindsym $win+Left          focus left
+bindsym $win+Down          focus down
+bindsym $win+Up            focus up
+bindsym $win+Right         focus right
 #=============================
 
 #======= System keys ========
@@ -74,32 +73,28 @@ bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo
 # Controlling brightness
 bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $notify-bar
 bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $notify-bar
-# Controlling notifications
-bindsym Control+space exec dunstctl close
-bindsym Control+Shift+space exec dunstctl close-all
-bindsym Control+$win+space exec dunstctl context
-bindsym $win+Control+l exec $locker
 #============================
 
 #======= Main modes ==========
 mode "delete" {
     # repeating
-    bindsym $win+1 exec ~/.config/i3/i3_repeater.sh 1
-    bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
-    bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
-    bindsym $win+4 exec ~/.config/i3/i3_repeater.sh 4
-    bindsym $win+5 exec ~/.config/i3/i3_repeater.sh 5
-    bindsym $win+6 exec ~/.config/i3/i3_repeater.sh 6
-    bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
-    bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
-    bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
+    bindsym $win+1         exec ~/.config/i3/i3_repeater.sh 1
+    bindsym $win+2         exec ~/.config/i3/i3_repeater.sh 2
+    bindsym $win+3         exec ~/.config/i3/i3_repeater.sh 3
+    bindsym $win+4         exec ~/.config/i3/i3_repeater.sh 4
+    bindsym $win+5         exec ~/.config/i3/i3_repeater.sh 5
+    bindsym $win+6         exec ~/.config/i3/i3_repeater.sh 6
+    bindsym $win+7         exec ~/.config/i3/i3_repeater.sh 7
+    bindsym $win+8         exec ~/.config/i3/i3_repeater.sh 8
+    bindsym $win+9         exec ~/.config/i3/i3_repeater.sh 9
     # Keys
-    bindsym $win+w mode "default"; kill
-    bindsym $win+d mode "default";focus parent,kill
-    bindsym $win+a mode "default";[workspace=$ws1] kill
-    bindsym $win+n exec dunstctl close
-    bindsym $win+Shift+n exec dunstctl close-all
-    bindsym Escape mode "default"
+    bindsym $win+w         mode "default"; kill
+    bindsym $win+d         mode "default"; kill
+    bindsym $win+p         mode "default";focus parent,kill
+    bindsym $win+a         mode "default";[workspace=$ws1] kill
+    bindsym $win+n         exec dunstctl close
+    bindsym $win+Shift+n   exec dunstctl close-all
+    bindsym Escape         mode "default"
     }
 
 mode "move" {
@@ -114,20 +109,15 @@ mode "move" {
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
     # Keys
-    bindsym $win+t mode "move_to"
-    bindsym $win+s mode "move_workspace"
-    bindsym $win+f mode "default"; floating toggle
-    bindsym $win+w mode "default"; fullscreen toggle
-    bindsym $win+h move left
-    bindsym $win+j move down
-    bindsym $win+k move up
-    bindsym $win+l move right
-    # Same with arrows
-    bindsym $win+Left move left
-    bindsym $win+Down move down
-    bindsym $win+Up move up
-    bindsym $win+Right move right
-    bindsym Escape mode "default"
+    bindsym $win+t          mode "move_to"
+    bindsym $win+s          mode "move_workspace"
+    bindsym $win+f          mode "default"; floating toggle
+    bindsym $win+w          mode "default"; fullscreen toggle
+    bindsym $win+h          mode "default"; move left
+    bindsym $win+j          mode "default"; move down
+    bindsym $win+k          mode "default"; move up
+    bindsym $win+l          mode "default"; move right
+    bindsym Escape          mode "default"
     }
 
 mode "go" {
@@ -136,29 +126,29 @@ mode "go" {
     bindsym $win+2 exec ~/.config/i3/i3_repeater.sh 2
     bindsym $win+3 exec ~/.config/i3/i3_repeater.sh 3
     bindsym $win+4 exec ~/.config/i3/i3_repeater.sh 4
-    bindsym $win+5 exec ~/.config/i3/i3_repeaterh 5
+    bindsym $win+5 exec ~/.config/i3/i3_repeater.sh 5
     bindsym $win+6 exec ~/.config/i3/i3_repeater.sh 6
     bindsym $win+7 exec ~/.config/i3/i3_repeater.sh 7
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
     # Keys
-    bindsym $win+s mode "go_workspace"
-    bindsym $win+w mode "go_window"
-    bindsym $win+g mode "default"; workspace $ws1
-    bindsym $win+m mode "default"; exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: '
-    bindsym $win+p focus prev ; mode "default"
-    bindsym $win+n focus next; mode "default"
-    bindsym $win+f focus mode_toggle; mode "default"
-    bindsym $win+h focus left; mode "default"
-    bindsym $win+j focus down; mode "default"
-    bindsym $win+k focus up; mode "default"
-    bindsym $win+l focus right; mode "default"
+    bindsym $win+s         mode "go_workspace"
+    bindsym $win+w         
+    bindsym $win+g         mode "default"; workspace $ws1
+    bindsym $win+m         mode "default"; exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: '
+    bindsym $win+p         focus prev ; mode "default"
+    bindsym $win+n         focus next; mode "default"
+    bindsym $win+f         focus mode_toggle; mode "default"
+    bindsym $win+h         focus left; mode "default"
+    bindsym $win+j         focus down; mode "default"
+    bindsym $win+k         focus up; mode "default"
+    bindsym $win+l         focus right; mode "default"
     # Same with arrows
-    bindsym $win+Left focus left; mode "default"
-    bindsym $win+Down focus down; mode "default"
-    bindsym $win+Up focus up; mode "default"
-    bindsym $win+Right focus right; mode "default"
-    bindsym Escape mode "default"
+    bindsym $win+Left      focus left; mode "default"
+    bindsym $win+Down      focus down; mode "default"
+    bindsym $win+Up        focus up; mode "default"
+    bindsym $win+Right     focus right; mode "default"
+    bindsym Escape         mode "default"
 }
 
 mode "launch" {
@@ -173,11 +163,11 @@ mode "launch" {
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
     # Programs to launch
-    bindsym $win+t mode "default"; exec $term
-    bindsym $win+f mode "default"; exec $filemanager
-    bindsym $win+b mode "default"; exec $browser
-    bindsym $win+l mode "default"; exec $launcher
-    bindsym Escape mode "default"
+    bindsym $win+t         mode "default"; exec $term
+    bindsym $win+f         mode "default"; exec $filemanager
+    bindsym $win+b         mode "default"; exec $browser
+    bindsym $win+l         mode "default"; exec $launcher
+    bindsym Escape         mode "default"
     }
 
 mode "system" {
@@ -192,11 +182,11 @@ mode "system" {
     bindsym $win+8 exec ~/.config/i3/i3_repeater.sh 8
     bindsym $win+9 exec ~/.config/i3/i3_repeater.sh 9
     # Keys
-    bindsym $win+s mode "default"; split toggle
-    bindsym $win+m mode "default"; exec dunstctl context
-    bindsym $win+r mode "default"; exec ~/.config/i3/i3-last_action.sh --clean $last_action; restart
-    bindsym $win+l mode "default"; layout toggle
-    bindsym Escape mode "default"
+    bindsym $win+s         mode "default"; split toggle
+    bindsym $win+m         mode "default"; exec dunstctl context
+    bindsym $win+r         mode "default"; exec ~/.config/i3/i3-last_action.sh --clean $last_action; restart
+    bindsym $win+l         mode "default"; layout toggle
+    bindsym Escape         mode "default"
     }
 #=============================
 
@@ -204,37 +194,31 @@ mode "system" {
 #=============================
 
 mode "go_workspace" {
-    bindsym $win+1 mode "default";workspace $ws1
-    bindsym $win+2 mode "default";workspace $ws2
-    bindsym $win+3 mode "default";workspace $ws3
-    bindsym $win+4 mode "default";workspace $ws4
-    bindsym $win+5 mode "default";workspace $ws5
-    bindsym $win+6 mode "default";workspace $ws6
-    bindsym $win+7 mode "default";workspace $ws7
-    bindsym $win+8 mode "default";workspace $ws8
-    bindsym $win+9 mode "default";workspace $ws9
-    bindsym $win+0 mode "default";workspace $ws0
-    bindsym Escape mode "default"
+    bindsym $win+1         mode "default";workspace $ws1
+    bindsym $win+2         mode "default";workspace $ws2
+    bindsym $win+3         mode "default";workspace $ws3
+    bindsym $win+4         mode "default";workspace $ws4
+    bindsym $win+5         mode "default";workspace $ws5
+    bindsym $win+6         mode "default";workspace $ws6
+    bindsym $win+7         mode "default";workspace $ws7
+    bindsym $win+8         mode "default";workspace $ws8
+    bindsym $win+9         mode "default";workspace $ws9
+    bindsym $win+0         mode "default";workspace $ws0
+    bindsym Escape         mode "default"
 }
 
 mode "move_workspace" {
-    bindsym $win+1 mode "default"; move container to workspace $ws1
-    bindsym $win+2 mode "default"; move container to workspace $ws2
-    bindsym $win+3 mode "default"; move container to workspace $ws3
-    bindsym $win+4 mode "default"; move container to workspace $ws4
-    bindsym $win+5 mode "default"; move container to workspace $ws5
-    bindsym $win+6 mode "default"; move container to workspace $ws6
-    bindsym $win+7 mode "default"; move container to workspace $ws7
-    bindsym $win+8 mode "default"; move container to workspace $ws8
-    bindsym $win+9 mode "default"; move container to workspace $ws9
-    bindsym $win+0 mode "default"; move container to workspace $ws0
-    bindsym Escape mode "default"
+    bindsym $win+1         mode "default"; move container to workspace $ws1
+    bindsym $win+2         mode "default"; move container to workspace $ws2
+    bindsym $win+3         mode "default"; move container to workspace $ws3
+    bindsym $win+4         mode "default"; move container to workspace $ws4
+    bindsym $win+5         mode "default"; move container to workspace $ws5
+    bindsym $win+6         mode "default"; move container to workspace $ws6
+    bindsym $win+7         mode "default"; move container to workspace $ws7
+    bindsym $win+8         mode "default"; move container to workspace $ws8
+    bindsym $win+9         mode "default"; move container to workspace $ws9
+    bindsym $win+0         mode "default"; move container to workspace $ws0
+    bindsym Escape         mode "default"
 }
 
 #=============================
-
-
-
-# STOP
-# Benigh lies madness
-
