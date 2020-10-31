@@ -1,6 +1,6 @@
 # Configuration for i3 with vim philosophy
 ```
-├──d
+├──d (delete)
 │  ├──[1-9]     starts a script to repeat next i3 command N times
 │  ├──p         delete parent
 │  ├──d         delete window
@@ -9,7 +9,7 @@
 │  ├──n         delete notification
 │  └──N         delete all notifications
 │
-├──m
+├──m (move)
 │  ├──[1-9]     starts a script to repeat next i3 command N times
 │  ├──h         move left
 │  ├──j         move down
@@ -22,7 +22,7 @@
 │  ├──f         move focused window to floating (or back)
 │  └──m         toggle fulscreen
 │
-├──g
+├──g (go)
 │  ├──[1-9]     starts a script to repeat next i3 command N times
 │  ├──s         go to workSpace
 │  ├──w         go to Window
@@ -38,48 +38,25 @@
 │  ├──k         go up
 │  └──l         go rught
 │
-├──d
+├──l (launch)
 │  ├──[1-9]     starts a script to repeat next i3 command N times
-│  ├──p         delete parent
-│  ├──d         delete window
-│  ├──w         delete window
-│  ├──a         delete all windows on a workspace
-│  ├──n         delete notification
-│  └──N         delete all notifications
-├──d
+│  ├──t         launch Terminal
+│  ├──f         launch Filemanager
+│  ├──b         launch Browser
+│  └──l         launch Launcher
+│
+├──s (system)
 │  ├──[1-9]     starts a script to repeat next i3 command N times
-│  ├──p         delete parent
-│  ├──d         delete window
-│  ├──w         delete window
-│  ├──a         delete all windows on a workspace
-│  ├──n         delete notification
-│  └──N         delete all notifications
-├──d
-│  ├──[1-9]     starts a script to repeat next i3 command N times
-│  ├──p         delete parent
-│  ├──d         delete window
-│  ├──w         delete window
-│  ├──a         delete all windows on a workspace
-│  ├──n         delete notification
-│  └──N         delete all notifications
+│  ├──s         toggle split
+│  ├──m         dunstctl context ???
+│  ├──r         restart i3
+│  ├──L         lock screen
+│  └──l         layout toggle
 ```
-  Delete 
-  dw(window), dd (parent), da(all), dn(notification), dN(all notifications)
-  
-  Move:
-  mh, mj, mk, ml, mf(to floating)
-  
-  Go:
-  gh, gj, gk, gl, gp(previous), gn(next), gf(to floating)
-  
-  lt(launch terminal)
-  
-  Resize:
-  rNh, rNj, rNk, rNl where N in a number up to 2000
- 
-i, s, q, Return
 
-Plans:
- - add mt, ms, gs, gw (moving between workspaces and windows)
- - maybe get rid of madness (resize modes) through i3-input (how???)
+## Plans:
+ - find better keyloger tan i3-input
+ - make window finding work all the time
+ - make choosing window by letters, not thriugh dmenu
+ - make repeater ignore mode changes
  - add more commands (which?)
