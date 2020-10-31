@@ -67,7 +67,7 @@
 ```
 
 ## Plans:
- - find better keyloger tan i3-input
+ - find better keyloger than i3-input
  - make window finding work all the time
  - make choosing window by letters, not thriugh dmenu
  - make repeater ignore mode changes

@@ -48,7 +48,6 @@ smart_gaps true
 #============================
 
 #====== Starting keys ========
-bindsym $win+q             exit
 bindsym $win+d             mode "delete"
 bindsym $win+m             mode "move"
 bindsym $win+g             mode "go"
@@ -57,12 +56,13 @@ bindsym $win+l             mode "launch"
 bindsym $win+s             mode "system"
 bindsym $win+period        exec i3-msg $(~/.config/i3/i3-last_action.sh --get $last_action)
 bindsym $win+Shift+m       exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
-bindsym $win+Shift+g       mode "default";workspace $ws0
+bindsym $win+Shift+g       mode "default"; workspace $ws0
 bindsym $win+Return        exec $term
 bindsym $win+Left          focus left
 bindsym $win+Down          focus down
 bindsym $win+Up            focus up
 bindsym $win+Right         focus right
+bindsym $win+q             exit
 #=============================
 
 #======= System keys ========
@@ -90,10 +90,10 @@ mode "delete" {
     # Keys
     bindsym $win+w         mode "default"; kill
     bindsym $win+d         mode "default"; kill
-    bindsym $win+p         mode "default";focus parent,kill
-    bindsym $win+a         mode "default";[workspace=$ws1] kill
-    bindsym $win+n         exec dunstctl close
-    bindsym $win+Shift+n   exec dunstctl close-all
+    bindsym $win+p         mode "default"; focus parent,kill
+    bindsym $win+a         mode "default"; [workspace=$ws1] kill
+    bindsym $win+n         mode "default"; exec dunstctl close
+    bindsym $win+Shift+n   mode "default"; exec dunstctl close-all
     bindsym Escape         mode "default"
     }
 
@@ -136,18 +136,18 @@ mode "go" {
     bindsym $win+w         
     bindsym $win+g         mode "default"; workspace $ws1
     bindsym $win+m         mode "default"; exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: '
-    bindsym $win+p         focus prev ; mode "default"
-    bindsym $win+n         focus next; mode "default"
-    bindsym $win+f         focus mode_toggle; mode "default"
-    bindsym $win+h         focus left; mode "default"
-    bindsym $win+j         focus down; mode "default"
-    bindsym $win+k         focus up; mode "default"
-    bindsym $win+l         focus right; mode "default"
+    bindsym $win+p         mode "default"; focus prev
+    bindsym $win+n         mode "default"; focus next
+    bindsym $win+f         mode "default"; focus mode_toggle
+    bindsym $win+h         mode "default"; focus left
+    bindsym $win+j         mode "default"; focus down
+    bindsym $win+k         mode "default"; focus up
+    bindsym $win+l         mode "default"; focus right
     # Same with arrows
-    bindsym $win+Left      focus left; mode "default"
-    bindsym $win+Down      focus down; mode "default"
-    bindsym $win+Up        focus up; mode "default"
-    bindsym $win+Right     focus right; mode "default"
+    bindsym $win+Left      mode "default"; focus left
+    bindsym $win+Down      mode "default"; focus down
+    bindsym $win+Up        mode "default"; focus up
+    bindsym $win+Right     mode "default"; focus right
     bindsym Escape         mode "default"
 }
 
@@ -194,16 +194,16 @@ mode "system" {
 #=============================
 
 mode "go_workspace" {
-    bindsym $win+1         mode "default";workspace $ws1
-    bindsym $win+2         mode "default";workspace $ws2
-    bindsym $win+3         mode "default";workspace $ws3
-    bindsym $win+4         mode "default";workspace $ws4
-    bindsym $win+5         mode "default";workspace $ws5
-    bindsym $win+6         mode "default";workspace $ws6
-    bindsym $win+7         mode "default";workspace $ws7
-    bindsym $win+8         mode "default";workspace $ws8
-    bindsym $win+9         mode "default";workspace $ws9
-    bindsym $win+0         mode "default";workspace $ws0
+    bindsym $win+1         mode "default"; workspace $ws1
+    bindsym $win+2         mode "default"; workspace $ws2
+    bindsym $win+3         mode "default"; workspace $ws3
+    bindsym $win+4         mode "default"; workspace $ws4
+    bindsym $win+5         mode "default"; workspace $ws5
+    bindsym $win+6         mode "default"; workspace $ws6
+    bindsym $win+7         mode "default"; workspace $ws7
+    bindsym $win+8         mode "default"; workspace $ws8
+    bindsym $win+9         mode "default"; workspace $ws9
+    bindsym $win+0         mode "default"; workspace $ws0
     bindsym Escape         mode "default"
 }
 
