@@ -25,7 +25,7 @@
 ├──g (go)
 │  ├──[1-9]?     starts a script to repeat next i3 command N times
 │  ├──s✓         go to workSpace
-│  ├──w✓         go to Window
+│  ├──w❌        go to Window
 │  ├──g✓         go to workspace 1
 │  ├──m✓         go to mark
 │  │  └──<mark>      
