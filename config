@@ -16,6 +16,7 @@ set $term               kitty
 set $menu               dmenu -i -l 10
 set $notify-bar         /tmp/i3/xobpipe
 set $last_action        /tmp/i3/last_action
+set $counter            /tmp/i3/counter
 set $notify-bar-program xob
 set $filemanager        kitty -e ranger
 set $browser            qutebrowser
@@ -29,7 +30,7 @@ exec                        kotatogram-desktop
 exec                        $browser
 exec --no-startup-id        dunst
 exec_always --no-startup-id $bar
-exec_always --no-startup-id mkdir /tmp/i3; touch $last_action
+exec_always --no-startup-id mkdir /tmp/i3; touch $last_action $counter $notify-bar
 exec_always --no-startup-id ~/.config/i3/i3-last_action.sh --start $last_action
 exec_always --no-startup-id mkfifo $notify-bar && tail -f $notify-bar | $notify-bar-program
 #============================
@@ -51,7 +52,7 @@ smart_gaps true
 bindsym $win+d             mode "delete"
 bindsym $win+m             mode "move"
 bindsym $win+g             mode "go"
-bindsym $win+r             exec i3-input -F 'exec ~/.config/i3/i3-resizer.sh %s'
+bindsym $win+r             mode "resize"
 bindsym $win+l             mode "launch"
 bindsym $win+Shift+l       exec $launcher
 bindsym $win+s             mode "system"
@@ -204,6 +205,24 @@ mode "window" {
     bindsym $win+f         mode "default"; floating toggle
     bindsym $win+w         mode "default"; floating toggle
     bindsym $win+s         mode "default"; split toggle
+    bindsym Escape         mode "default"
+    }
+
+mode "resize" {
+    # Keys
+    bindsym $win+1         exec ~/.config/i3/i3-resizer.sh 1 $counter
+    bindsym $win+2         exec ~/.config/i3/i3-resizer.sh 2 $counter
+    bindsym $win+3         exec ~/.config/i3/i3-resizer.sh 3 $counter
+    bindsym $win+4         exec ~/.config/i3/i3-resizer.sh 4 $counter
+    bindsym $win+5         exec ~/.config/i3/i3-resizer.sh 5 $counter
+    bindsym $win+6         exec ~/.config/i3/i3-resizer.sh 6 $counter
+    bindsym $win+7         exec ~/.config/i3/i3-resizer.sh 7 $counter
+    bindsym $win+8         exec ~/.config/i3/i3-resizer.sh 8 $counter
+    bindsym $win+9         exec ~/.config/i3/i3-resizer.sh 9 $counter
+    bindsym $win+h         mode "default"; exec ~/.config/i3/i3-resizer.sh h $counter
+    bindsym $win+j         mode "default"; exec ~/.config/i3/i3-resizer.sh j $counter
+    bindsym $win+k         mode "default"; exec ~/.config/i3/i3-resizer.sh k $counter
+    bindsym $win+l         mode "default"; exec ~/.config/i3/i3-resizer.sh l $counter
     bindsym Escape         mode "default"
     }
 #=============================
