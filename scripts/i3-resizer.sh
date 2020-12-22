@@ -1,6 +1,7 @@
 #!/bin/bash
 # $1 - command
 # $2 - "storage"
+number=$(cat $2)
 case $1 in
     h) i3-msg resize shrink width $number;;
     j) i3-msg resize shrink height $number;;

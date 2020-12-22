@@ -3,6 +3,7 @@
 # $2 - list file, aka database
 # $3 - time
 time=${3:=6}
+[ -z "$2" ] && echo "I need storage file" && exit 1
 
 case $1 in
     hide)
@@ -24,31 +25,25 @@ case $1 in
         i3-msg '[id=$id] scratchpad show' ;;
 
     daemon)
-        [ -z "$2" ] && echo "I need storage file" && exit 1
-
-        until false
+        # Creating tmp file. Yep, tmp tmp file ;)
+        touch "$2_"
+        for window in $(cat "$2")
         do
-            # Creating tmp file. Yep, tmp tmp file ;)
-            touch "$2_"
-             for window in $(cat "$2")
-             do
-                 # Getting window parameters
-                 eval $window
-                 time=$(expr "$time" - 1 )
-                 if [ $time -le 0 ]
-                 then
-                     i3-msg "[id=$id] kill"
-                     # Unfreezing window to so that it reacts to "kill" signal
-                     kill -18 $pid
-                     echo "killed window $id"
-                     continue
-                 fi
-                 echo "id=$id;pid=$pid;time=$time" >> "$2_"
-             done
-             # Updating main list
-             mv "$2_" "$2"
-             sleep 10
-        done
+             # Getting window parameters
+             eval $window
+             time=$(expr "$time" - 1 )
+             if [ $time -le 0 ]
+             then
+                 i3-msg "[id=$id] kill"
+                 # Unfreezing window to so that it reacts to "kill" signal
+                 kill -18 $pid
+                 echo "killed window $id"
+                 continue
+             fi
+             echo "id=$id;pid=$pid;time=$time" >> "$2_"
+         done
+         # Updating main list
+         mv "$2_" "$2"
         ;;
 
 esac
