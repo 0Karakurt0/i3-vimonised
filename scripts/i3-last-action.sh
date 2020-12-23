@@ -8,6 +8,7 @@ repeat=$(tail -n 1 $counter)
 if [[! $comand =~ $2 ]]; then
     echo "$comand" >> $last_action
 
+    # Making repeat function work
     if [ $repeat -gt 1 ]; then
         ( $script/i3-repeater.sh $repeat $last_action $counter ) &
         echo 0 > $counter

@@ -7,7 +7,6 @@ case $1 in
     j) i3-msg resize shrink height $number; echo 0 > $2 ;;
     k) i3-msg resize grow height $number; echo 0 > $2 ;;
     l) i3-msg resize grow width $number; echo 0 > $2 ;;
-    [0-9])  number=$( tail -n 1 "$2");
-            number=$number$1;
-            echo $number > $2 ;;
+    [0-9]) number="$number$1"; # Adding digit
+           echo $number > $2 ;;
 esac

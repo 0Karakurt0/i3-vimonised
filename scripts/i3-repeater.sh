@@ -1,6 +1,6 @@
 #! /bin/bash
 time=$1
-comand=$(tail -n 1 $2)
+comand=$(tail -n 1 $2) # Getting last action from $last_action
 
 until [ $time -le 1 ]; do
     sleep 0.1
