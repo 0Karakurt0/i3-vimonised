@@ -1,16 +1,9 @@
 #! /bin/bash
-start=$(cat $2 | wc -l)
-until [ ! $start == $(cat $2 | wc -l) ]
-do
-    echo "waiting"
-    sleep 0.3
-done
+time=$1
+comand=$(tail -n 1 $2)
 
-times=${1:=1}
-
-until [ $times -le 1 ]; do
-    echo $times
+until [ $time -le 1 ]; do
     sleep 0.1
-    i3-msg "$( tail -n 1 $2)"
-    times=$( expr $times - 1 )
+    i3-msg $comand & disown
+    time=$( expr $time - 1 )
 done

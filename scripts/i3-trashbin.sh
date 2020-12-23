@@ -2,7 +2,7 @@
 # $1 - operation
 # $2 - list file, aka database
 # $3 - time
-time=${3:=6}
+time=$3
 [ -z "$2" ] && echo "I need storage file" && exit 1
 
 case $1 in
@@ -41,9 +41,10 @@ case $1 in
                  continue
              fi
              echo "id=$id;pid=$pid;time=$time" >> "$2_"
-         done
-         # Updating main list
-         mv "$2_" "$2"
+        done
+        # Updating main list
+        mv "$2_" "$2"
+        echo "Windows updated"
         ;;
 
 esac
