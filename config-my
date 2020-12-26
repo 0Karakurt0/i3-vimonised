@@ -67,7 +67,7 @@ bindsym $win+s                   mode "system"
 bindsym $win+w                   mode "window"
 bindsym $win+Shift+semicolon     mode "i3:"
 bindsym $win+p                   mode "player"
-#bindsym $win+u                   exec $script/i3-undo.sh "$last_action"
+bindsym $win+u                   exec $script/i3-undo.sh "$env"
 bindsym $win+period              exec $script/i3-last-action.sh $env 1 get
 bindsym $win+Shift+m             exec i3-input -F 'mark %s' -l 1 -P 'Mark: ' 
 bindsym $win+Shift+g             workspace "$ws0" 

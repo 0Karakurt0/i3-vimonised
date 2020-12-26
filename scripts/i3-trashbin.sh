@@ -22,7 +22,16 @@ case $1 in
         sed -i '$ d' "$2"
         # Unfreezing window
         kill -18 $pid
-        i3-msg '[id=$id] scratchpad show' ;;
+        i3-msg "[id=$id] scratchpad show" ;;
+
+    kill)
+        # Getting window
+        eval $(tail -n 1 "$2")
+        # Removing window from list
+        sed -i '$ d' "$2"
+        # Unfreezing window
+        kill -18 $pid
+        i3-msg "[id=$id] kill" ;;
 
     daemon)
         # Creating tmp file. Yep, tmp tmp file ;)

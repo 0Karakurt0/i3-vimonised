@@ -8,7 +8,7 @@ case $3 in
     repeat=$(tail -n 1 $counter)
 
     # Filtering out all modes since we don't want to trigger on that
-    if [[ ! ( $comand =~ $2 || $comand =~ "counter" ) || $comand =~ "i3-resizer.sh \w" ]]; then
+    if [[ ! ( $comand =~ $2 || $comand =~ "counter" ||  $comand =~ "last-action.sh" ) || $comand =~ "i3-resizer.sh \w" ]]; then
             echo "valid action!"
             echo "$comand" >> $last_action
 
