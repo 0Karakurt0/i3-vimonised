@@ -32,8 +32,7 @@ set $current_workspace            i3-msg -t get_workspaces | jq -r '.[] | select
 
 #======== Autostart =========
 exec                              nm-applet
-exec                              kotatogram-desktop
-exec                              "$browser"
+exec                              $locker
 #============================
 
 #===== Initialization =======
@@ -48,13 +47,8 @@ for_window [instance="gl"]             floating enable
 for_window [window_role="pop-up"]      floating enable
 for_window [window_role="task_dialog"] floating enable
 
-assign [instance="kotatogram-desktop"] "$ws0"
-assign [instance="$browser"]           "$ws3"
 
-floating_modifier $win
-default_border pixel 2
-gaps inner 6
-smart_gaps true
+floating_modifier                      $win
 #============================
 
 #====== Starting keys ========
@@ -67,7 +61,7 @@ bindsym $win+s                   mode "system"
 bindsym $win+w                   mode "window"
 bindsym $win+Shift+semicolon     mode "i3:"
 bindsym $win+p                   mode "player"
-#bindsym $win+u                   exec $script/i3-undo.sh "$last_action"
+bindsym $win+u                   exec $script/i3-undo.sh "$last_action"
 bindsym $win+period              exec $script/i3-last-action.sh $env 1 get
 bindsym $win+Shift+m             exec i3-input -F 'mark %s' -l 1 -P 'Mark: ' 
 bindsym $win+Shift+g             workspace "$ws0" 
@@ -76,16 +70,6 @@ bindsym $win+Down                focus down
 bindsym $win+Up                  focus up 
 bindsym $win+Right               focus right 
 #=============================
-
-#======= System keys ========
-# Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec pamixer -ui 5 && pamixer --get-volume > "$notify_bar"
-bindsym XF86AudioLowerVolume exec pamixer -ud 5 && pamixer --get-volume > "$notify_bar"
-bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > "$notify_bar" ) || pamixer --get-volume > "$notify_bar"
-# Controlling brightness
-bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > "$notify_bar"
-bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > "$notify_bar"
-#============================
 
 #======= Main modes ==========
 mode "delete" {
@@ -143,7 +127,6 @@ mode "go" {
     bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
     # Keys
     bindsym $win+s         mode "go_workspace"
-    #bindsym $win+w         
     bindsym $win+g         mode "default"; workspace "$ws1" 
     bindsym $win+m         mode "default"; exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: ' 
     bindsym $win+f         mode "default"; focus mode_toggle 
