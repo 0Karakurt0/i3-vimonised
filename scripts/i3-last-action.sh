@@ -1,20 +1,25 @@
 #! /bin/bash
 source $1
-#touch "$last_action-raw-" "$last_action-"
-comand=$(tail -n 1 $last_action-raw)
-repeat=$(tail -n 1 $counter)
+case $3 in
+    get) i3-msg $(tail -n 1 "$last_action");;
+    *)
+    #touch "$last_action-raw-" "$last_action-"
+    comand=$(tail -n 1 $last_action-raw)
+    repeat=$(tail -n 1 $counter)
 
-# Filtering out all modes since we don't want to trigger on that
-if [[! $comand =~ $2 ]]; then
-    echo "$comand" >> $last_action
+    # Filtering out all modes since we don't want to trigger on that
+    if [[ ! ( $comand =~ $2 || $comand =~ "counter" ) || $comand =~ "i3-resizer.sh \w" ]]; then
+            echo "valid action!"
+            echo "$comand" >> $last_action
 
-    # Making repeat function work
-    if [ $repeat -gt 1 ]; then
-        ( $script/i3-repeater.sh $repeat $last_action $counter ) &
-        echo 0 > $counter
+            # Making repeat function work
+            if [ $repeat -gt 1 ]; then
+                echo "repeating $repeat"
+                $script/i3-repeater.sh $last_action $repeat $counter &
+            fi
     fi
-
-fi
+    ;;
+esac
 
 #list1=$(cat $last_action-raw)
 #list2=$( cat $last_action)

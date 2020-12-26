@@ -44,7 +44,7 @@ case $1 in
         done
         # Updating main list
         mv "$2_" "$2"
-        echo "Windows updated"
+        echo  "Windows updated"
         ;;
 
 esac

@@ -39,7 +39,7 @@ exec                              "$browser"
 #===== Initialization =======
 exec_always --no-startup-id       "$bar"
 exec_always --no-startup-id       $notify_daemon
-exec_always --no-startup-id       $script/vimonised-daemon.sh $env
+exec_always --no-startup-id       $script/launcher.sh $env
 #============================
 
 #========== Rules ===========
@@ -67,8 +67,8 @@ bindsym $win+s                   mode "system"
 bindsym $win+w                   mode "window"
 bindsym $win+Shift+semicolon     mode "i3:"
 bindsym $win+p                   mode "player"
-bindsym $win+u                   exec $script/i3-undo.sh "$last_action"
-bindsym $win+period              exec i3-msg $(tail -n 1 "$last_action") 
+#bindsym $win+u                   exec $script/i3-undo.sh "$last_action"
+bindsym $win+period              exec $script/i3-last-action.sh $env 1 get
 bindsym $win+Shift+m             exec i3-input -F 'mark %s' -l 1 -P 'Mark: ' 
 bindsym $win+Shift+g             workspace "$ws0" 
 bindsym $win+Left                focus left 
@@ -90,15 +90,15 @@ bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > "$no
 #======= Main modes ==========
 mode "delete" {
     # repeating
-    bindsym $win+1         exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2         exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3         exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4         exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5         exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6         exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7         exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8         exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9         exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
     # Keys
     bindsym $win+w         mode "default"; exec $script/i3-trashbin.sh hide $Windows $delay 
     bindsym $win+d         mode "default"; exec $script/i3-trashbin.sh hide $Windows $delay  
@@ -111,15 +111,15 @@ mode "delete" {
 
 mode "move:" {
     # Repeating
-    bindsym $win+1 exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2 exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3 exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4 exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5 exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6 exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7 exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8 exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9 exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
     # Keys
     bindsym $win+t          mode "move_to"
     bindsym $win+s          mode "move_workspace"
@@ -132,15 +132,15 @@ mode "move:" {
 
 mode "go" {
     # Repeating
-    bindsym $win+1 exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2 exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3 exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4 exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5 exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6 exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7 exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8 exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9 exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
     # Keys
     bindsym $win+s         mode "go_workspace"
     #bindsym $win+w         
@@ -163,18 +163,18 @@ mode "go" {
 
 mode "launch" {
     # Repeating
-    bindsym $win+1 exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2 exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3 exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4 exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5 exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6 exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7 exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8 exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9 exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
     # Programs to launch
     bindsym $win+t         mode "default"; exec "$term" 
-    bindsym $win+l         mode "default"; exec "$term" 
+    bindsym $win+l         mode "default"; exec "$launcher" 
     bindsym $win+f         mode "default"; exec "$filemanager" 
     bindsym $win+b         mode "default"; exec "$browser" 
     bindsym $win+m         mode "default"; exec "$launcher" 
@@ -183,15 +183,15 @@ mode "launch" {
 
 mode "system" {
     # Repeating
-    bindsym $win+1 exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2 exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3 exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4 exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5 exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6 exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7 exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8 exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9 exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
     # Keys
     bindsym $win+m         mode "default"; exec dunstctl context 
     bindsym $win+h         mode "default"; exec "$term htop"
@@ -205,15 +205,15 @@ mode "system" {
 
 mode "window" {
     # repeating
-    bindsym $win+1         exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2         exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3         exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4         exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5         exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6         exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7         exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8         exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9         exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
     # Keys
     bindsym $win+f         mode "default"; floating toggle 
     bindsym $win+w         mode "default"; fullscreen toggle 
@@ -232,10 +232,11 @@ mode "resize" {
     bindsym $win+7         exec $script/i3-resizer.sh 7 "$counter"
     bindsym $win+8         exec $script/i3-resizer.sh 8 "$counter"
     bindsym $win+9         exec $script/i3-resizer.sh 9 "$counter"
-    bindsym $win+h         mode "default"; exec $script/i3-resizer.sh h "$counter" ;     
-    bindsym $win+j         mode "default"; exec $script/i3-resizer.sh j "$counter" ;     
-    bindsym $win+k         mode "default"; exec $script/i3-resizer.sh k "$counter" ;     
-    bindsym $win+l         mode "default"; exec $script/i3-resizer.sh l "$counter" ;     
+    bindsym $win+0         exec $script/i3-resizer.sh 0 "$counter"
+    bindsym $win+h         mode "default"; exec $script/i3-resizer.sh h "$counter"
+    bindsym $win+j         mode "default"; exec $script/i3-resizer.sh j "$counter"
+    bindsym $win+k         mode "default"; exec $script/i3-resizer.sh k "$counter"
+    bindsym $win+l         mode "default"; exec $script/i3-resizer.sh l "$counter"
     bindsym Escape         mode "default"
     }
 #=============================
@@ -291,15 +292,15 @@ mode "player" {
 
 mode "sound" {
     # repeating
-    bindsym $win+1         exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2         exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3         exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4         exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5         exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6         exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7         exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8         exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9         exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
     bindsym $win+a         mode "default"; exec pamixer -ui 5 && pamixer --get-volume > "$notify_bar"
     bindsym $win+d         mode "default"; exec pamixer -ud 5 && pamixer --get-volume > "$notify_bar"
     bindsym $win+m         mode "default"; exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > "$notify_bar" ) || pamixer --get-volume > "$notify_bar"
@@ -308,15 +309,15 @@ mode "sound" {
 
 mode "brightness" {
     # repeating
-    bindsym $win+1         exec echo "$(cat $counter)1" > "$counter"
-    bindsym $win+2         exec echo "$(cat $counter)2" > "$counter"
-    bindsym $win+3         exec echo "$(cat $counter)3" > "$counter"
-    bindsym $win+4         exec echo "$(cat $counter)4" > "$counter"
-    bindsym $win+5         exec echo "$(cat $counter)5" > "$counter"
-    bindsym $win+6         exec echo "$(cat $counter)6" > "$counter"
-    bindsym $win+7         exec echo "$(cat $counter)7" > "$counter"
-    bindsym $win+8         exec echo "$(cat $counter)8" > "$counter"
-    bindsym $win+9         exec echo "$(cat $counter)9" > "$counter"
+    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
+    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
+    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
+    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
+    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
+    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
+    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
+    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
+    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
     bindsym $win+a         mode "default"; exec light -A 5 && light -G | cut -d'.' -f1 > "$notify_bar"
     bindsym $win+d         mode "default"; exec light -U 5 && light -G | cut -d'.' -f1 > "$notify_bar"
     bindsym Escape         mode "default"
