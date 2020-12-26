@@ -1,7 +1,7 @@
 #! /bin/bash
-if [ $(light | sed 's/\..*//') -gt 0 ]; then
+if [ $(light -G | cut -d '.' -f 1) -gt 0 ]; then
     echo "off"
-    light -O
+    light -O # Saving current value
     light -S 0
 else
     echo "on"
