@@ -1,0 +1,55 @@
+Verbs:
+ - toggle
+ - change
+ - move
+ - remove
+ - focus
+ - start
+ - do
+
+Nouns
+ - window
+ - system
+ - manager
+ - workspAce
+ - player
+ -
+
+
+
+twf, tws, twl
+tss, tsb, tsp, tsn, tsf,
+tmg, tmf, tmb,
+ta
+tp[p,r,s,c]
+
+cw20[h,j,k,l], cwl[t,b,s]
+css30, csso, csb30, csp[p,r,s,h,S]
+cmg10, cms,
+cam,
+cps, cpp, cpo,
+
+mw[h,j,k,l,s]{2}
+ms
+mm
+ma
+mps
+
+fw[h,j,k,l]
+fsp
+fm
+fa[0-9]
+fps
+
+rw
+rs
+rm
+rs[n,N]
+rps, dpp,
+
+s[t,f,b,l]
+sw
+ssh
+sm
+ss
+spp, sps,
