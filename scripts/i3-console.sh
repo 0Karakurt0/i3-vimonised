@@ -11,8 +11,9 @@ read comand
 comand1="$(echo $comand | cut -c 2- )"
 [ ! $comand ] && clear ;
 
+
 case "$( echo $comand | cut -c 1 )" in
-    !) msg=1; i3-msg '[con_mark="console"] fullscreen' &&  $SHELL -c "$comand1";;
+    !) msg=1; $SHELL -c "$comand1";;
     q) i3-msg exit;;
     w) i3-msg exit;;
     r) i3-msg restart;;

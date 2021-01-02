@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 # $1 - command
 # $2 - "storage"
 number=$(cat $2)
