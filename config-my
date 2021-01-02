@@ -287,7 +287,7 @@ mode "player" {
     bindsym $win+Shift+s   mode "default"; exec mpc stop
     bindsym $win+c         mode "default"; exec mpc clear
     bindsym $win+j         mode "default"; exec mpc next
-    bindsym $win+k         mode "default"; exec mpc previous
+    bindsym $win+k         mode "default"; exec mpc prev
     bindsym $win+r         mode "default"; exec mpc random && dunstify -r 29 "$( mpc status | grep -o "random: on\|random: off")"
     bindsym $win+Shift+r   mode "default"; exec mpc repeat && dunstify -r 29 "$( mpc status | grep -o "repeat: on\|repeat: off")"
     bindsym $win+s         mode "default"; exec mpc single && dunstify -r 29 "$( mpc status | grep -o "single: on\|single: off")"

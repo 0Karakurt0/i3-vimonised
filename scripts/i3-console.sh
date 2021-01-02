@@ -9,7 +9,7 @@ else
 fi
 read comand
 comand1="$(echo $comand | cut -c 2- )"
-[ ! $comand ] && clear ;
+[ ! "$comand" ] && clear ;
 
 
 case "$( echo $comand | cut -c 1 )" in
