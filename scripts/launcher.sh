@@ -23,8 +23,4 @@ echo "...cleaned before start"
 $script/vimonised_daemon.sh $1 &
 echo "...started main daemon"
 
-# Sub-daemons
-i3-msg -m -t subscribe '["binding"]' | stdbuf -i0 -o0 -e0 jq -r '.binding.command' >> "$last_action-raw" &
-tail -f "$notify_bar" | $notify_bar_program &
-
 echo "Sucsesfully started!"

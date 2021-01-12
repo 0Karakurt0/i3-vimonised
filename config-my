@@ -36,10 +36,11 @@ set $volume_get_mute              pamixer --get-mute && echo 0
 set $brightness_up                light -A 5
 set $brightness_down              light -U 5
 set $brightness_get               light -G | cut -d'.' -f1
-# You also need to customize player mode (line 267) if you're not         using mpc
+# You also need to customize player mode (line 267) if you're not using mpc
 #============================
 
 #======== Autostart =========
+exec                              "$locker"
 exec                              nm-applet
 exec                              kotatogram-desktop
 exec                              "$browser"
