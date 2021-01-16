@@ -12,7 +12,7 @@ set $ws7                          7
 set $ws8                          8
 set $ws9                          9
 set $ws0                          0
-set $delay                        6
+set $lifetime                        6
 set $bar                          $HOME/.config/polybar/launch.sh
 set $locker                       i3lock -i $HOME/.config/i3/bg.png
 set $term                         kitty
@@ -92,9 +92,9 @@ mode "delete" {
     bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
     bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
     # Keys
-    bindsym $win+w         mode "default"; exec $script/i3-trashbin.sh hide $Windows $delay 
-    bindsym $win+d         mode "default"; exec $script/i3-trashbin.sh hide $Windows $delay  
-    bindsym $win+p         mode "default"; focus parent; exec $script/i3-trashbin.sh hide $Windows $delay 
+    bindsym $win+w         mode "default"; exec $script/i3-trashbin.sh hide $Windows $lifetime 
+    bindsym $win+d         mode "default"; exec $script/i3-trashbin.sh hide $Windows $lifetime  
+    bindsym $win+p         mode "default"; focus parent; exec $script/i3-trashbin.sh hide $Windows $lifetime 
     bindsym $win+a         mode "default"; [workspace="$current_workspace"] kill 
     bindsym $win+n         mode "default"; exec dunstctl close 
     bindsym $win+Shift+n   mode "default"; exec dunstctl close-all 

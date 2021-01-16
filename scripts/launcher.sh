@@ -21,6 +21,4 @@ echo "...cleaned before start"
 
 # Main daemon
 $script/vimonised_daemon.sh $1 &
-echo "...started main daemon"
-
-echo "Sucsesfully started!"
+echo "...summoned a daemon!"

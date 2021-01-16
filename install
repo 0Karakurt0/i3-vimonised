@@ -1,0 +1,8 @@
+#! /bin/bash
+workdir="$PWD"
+echo -n "Installation path (~/.config/i3 by default, press enter to skip):"
+read installdir
+[ $installdir ] || (echo "Using default"; installdir="$HOME/.config/i3")
+[ -d $installdir ] || ( echo "Creating directory"; mkdir --parents $installdir )
+cp --interactive --recursive --target-directory=$installdir $workdir/config $workdir/scripts 
+echo "Done"

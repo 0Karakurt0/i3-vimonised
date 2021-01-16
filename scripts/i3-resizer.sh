@@ -9,26 +9,26 @@ eval $( \
 )
 prcH=$(( height / 100 ))
 prcW=$(( width / 100 ))
-echo "$prcH | $prcW | $number | $height | $width"
+echo -n " $height -> $prcH |$width -> $prcW ==> $number -> "
 
 
 case $1 in
-    h) prct=$(( number * prcY ))
-       i3-msg resize shrink width $prct
+    h) prct=$(( number * prcW ))
        echo $prct
+       i3-msg resize shrink width $prct
        echo > $2 ;;
     j) prct=$(( number * prcH ))
-       i3-msg resize shrink height $prct
        echo $prct
+       i3-msg resize shrink height $prct
        echo > $2 ;;
     k) prct=$(( number * prcH ))
+       echo $prct
        i3-msg resize grow height $prct
-       echo $prct
        echo > $2 ;;
-    l) prct=$(( number * prcY ))
+    l) prct=$(( number * prcW ))
+       echo $prct
        i3-msg resize grow width $prct
-       echo $prct
        echo > $2 ;;
-    [0-9]) number="$number$1"; # Adding digit
-           echo $number > $2 ;;
+    [0-9]) echo "$number$1"
+           echo "$number$1" > $2 ;; # Adding digit
 esac
