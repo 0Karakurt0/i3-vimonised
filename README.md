@@ -1,7 +1,7 @@
 # Configuration for i3 with vim philosophy
 To install just run ./install script and specify installation directory.
 ## How it works
-Same as in VI, there are Verbs and Nouns. To preform an action you just combine two of them.
+Same as in VI, there are Verbs and Nouns. To preform an action you just combine two of them and an argument.
 ##### Verbs:
  - Toggle
  - Change
@@ -15,6 +15,7 @@ Same as in VI, there are Verbs and Nouns. To preform an action you just combine 
  - Manager
  - workspAce
  - Player
+
  Full list of words and arguments you can see in Keys.txt
 
  If you have a WM+DE action that cannot be described by these words, please write an issue.
