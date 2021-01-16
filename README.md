@@ -16,7 +16,7 @@ Same as in VI, there are Verbs and Nouns. To preform an action you just combine 
  - workspAce
  - Player
 
- Full list of words and arguments you can see in Keys.txt
+ Full list of words and arguments you can see in Keys.md
 
  If you have a WM+DE action that cannot be described by these words, please write an issue.
 
