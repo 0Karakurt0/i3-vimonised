@@ -1,8 +1,21 @@
 #! /bin/bash
-workdir="$PWD"
-echo -n "Installation path (~/.config/i3 by default, press enter to skip):"
+echo "Installation path (~/.config/i3 by default, press enter to skip):"
 read installdir
-[ $installdir ] || (echo "Using default"; installdir="$HOME/.config/i3")
-[ -d $installdir ] || ( echo "Creating directory"; mkdir --parents $installdir )
-cp --interactive --recursive --target-directory=$installdir $workdir/config $workdir/scripts 
+[ $installdir ] || installdir="$HOME/.config/i3"
+echo "Installing to $installdir"
+if [ -d $installdir ]; then
+    echo "hi" #mv $installdir $installdir.old && echo "Backed up older config"
+else
+    mkdir --parents $installdir && echo "Created directory $(basename $installdir)"
+fi
+
+echo "Link to git files?[Y/n]"
+read answ
+echo $answ
+case $answ in
+    y) echo "yes" ;;
+    n) echo "no" ;;
+    *) exit 1 ;;
+esac
+#cp --interactive --recursive --target-directory=$installdir $workdir/config $workdir/scripts ; && \ 
 echo "Done"
