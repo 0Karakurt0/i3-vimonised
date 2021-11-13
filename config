@@ -5,13 +5,13 @@ set $locker                       i3lock -i $HOME/.config/i3/bg.png
 set $term                         alacritty
 set $menu                         dmenu -i -l 10
 set $browser                      qutebrowser
-set $filemanager                  alacritty -e lf
+set $filemanager                  $term -e lf
 set $launcher                     dmenu_run
 set $notify_bar_program           xob
 set $notify_bar                   /tmp/i3/xobpipe
 set $script                       $HOME/.config/i3/scripts
 set $last_action                  /tmp/i3/last_action 
-set $counter                      /tmp/i3/number 
+set $counter                      /tmp/i3/number
 set $console_id                   /tmp/i3/console_id
 set $console_state                /tmp/i3/console_state
 set $volume_up                    pamixer -ui 5
@@ -59,7 +59,7 @@ bindsym $win+a                   mode "workspAce"
 bindsym $win+c                   mode "change"
 bindsym $win+d                   mode "delete"
 bindsym $win+g                   mode "go"
-bindsym $win+m                   mode "move:"
+bindsym $win+m                   mode "move"
 bindsym $win+o                   mode "open"
 bindsym $win+p                   mode "player"
 bindsym $win+r                   mode "resize"
@@ -68,10 +68,11 @@ bindsym $win+t                   mode "toggle"
 bindsym $win+w                   mode "window"
 bindsym $win+y                   mode "yank"
 
-bindsym $win+Shift+semicolon     exec $script/i3-console.sh toggle $console_id $console_state
-bindsym $win+period              exec $script/i3-last-action.sh $env 1 get
+bindsym $win+Shift+semicolon     exec $script/i3-console.sh toggle "$console_id" "$console_state"
+bindsym $win+period              exec $script/i3-last-action.sh "$last_action"
 bindsym $win+Shift+m             exec i3-input -F 'mark %s' -l 1 -P 'Mark: ' 
 bindsym $win+Shift+a             workspace number 0 
+bindsym $win+slash               exec $script/i3-find.sh
 
 bindsym $win+Left                focus left 
 bindsym $win+Down                focus down 
@@ -108,143 +109,142 @@ bindsym Print exec scrot --exec 'xclip -selection clipboard $f -t image/png' $HO
 #======= Main modes ==========
 mode "delete" {
     # repeating
-    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
+    bindsym $win+1         exec $script/i3-repeater.sh "$counter" "1" "$last_action"
+    bindsym $win+2         exec $script/i3-repeater.sh "$counter" "2" "$last_action"
+    bindsym $win+3         exec $script/i3-repeater.sh "$counter" "3" "$last_action"
+    bindsym $win+4         exec $script/i3-repeater.sh "$counter" "4" "$last_action"
+    bindsym $win+5         exec $script/i3-repeater.sh "$counter" "5" "$last_action"
+    bindsym $win+6         exec $script/i3-repeater.sh "$counter" "6" "$last_action"
+    bindsym $win+7         exec $script/i3-repeater.sh "$counter" "7" "$last_action"
+    bindsym $win+8         exec $script/i3-repeater.sh "$counter" "8" "$last_action"
+    bindsym $win+9         exec $script/i3-repeater.sh "$counter" "9" "$last_action"
     # Keys
-    bindsym $win+w         mode "default", exec $script/i3-closer.sh
-    bindsym $win+d         mode "default", kill
-    bindsym $win+p         mode "default", focus parent; exec $script/i3-trashbin.sh hide $Windows $delay 
-    bindsym $win+a         mode "default", [workspace="$current_workspace"] kill 
-    bindsym $win+n         mode "default", exec dunstctl close 
-    bindsym $win+Shift+n   mode "default", exec dunstctl close-all 
+    #bindsym $win+a         mode "default"; exec $script/i3-kill-workspace.sh
+    bindsym $win+a         mode "default"; [workspace="__focused__"] kill
+    bindsym $win+d         mode "default"; kill
+    bindsym $win+n         mode "default"; exec dunstctl close 
+    bindsym $win+Shift+n   mode "default"; exec dunstctl close-all 
+    bindsym $win+p         mode "default"; focus parent; kill
+    bindsym $win+w         mode "default"; kill
     bindsym Escape         mode "default"
     }
 
-mode "move:" {
+mode "move" {
     # Repeating
-    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
+    bindsym $win+1          exec $script/i3-repeater.sh "$counter" "1" "$last_action"
+    bindsym $win+2          exec $script/i3-repeater.sh "$counter" "2" "$last_action"
+    bindsym $win+3          exec $script/i3-repeater.sh "$counter" "3" "$last_action"
+    bindsym $win+4          exec $script/i3-repeater.sh "$counter" "4" "$last_action"
+    bindsym $win+5          exec $script/i3-repeater.sh "$counter" "5" "$last_action"
+    bindsym $win+6          exec $script/i3-repeater.sh "$counter" "6" "$last_action"
+    bindsym $win+7          exec $script/i3-repeater.sh "$counter" "7" "$last_action"
+    bindsym $win+8          exec $script/i3-repeater.sh "$counter" "8" "$last_action"
+    bindsym $win+9          exec $script/i3-repeater.sh "$counter" "9" "$last_action"
     # Keys
     bindsym $win+t          mode "move_to"
     bindsym $win+a          mode "move_workspace"
-    bindsym $win+h          mode "default", move left 
-    bindsym $win+j          mode "default", move down 
-    bindsym $win+k          mode "default", move up 
-    bindsym $win+l          mode "default", move right 
-    bindsym $win+Shift+h    mode "default", mark "_swapee", focus left, swap with mark "_swapee", unmark "_swapee"
-    bindsym $win+Shift+j    mode "default", mark "_swapee", focus down, swap with mark "_swapee", unmark "_swapee"
-    bindsym $win+Shift+k    mode "default", mark "_swapee", focus up,   swap with mark "_swapee", unmark "_swapee"
-    bindsym $win+Shift+l    mode "default", mark "_swapee", focus right,swap with mark "_swapee", unmark "_swapee"
-    bindsym $win+s          mode "default", move scratchpad
+    bindsym $win+h          mode "default"; move left 
+    bindsym $win+j          mode "default"; move down 
+    bindsym $win+k          mode "default"; move up 
+    bindsym $win+l          mode "default"; move right 
+    bindsym $win+s          mode "default"; move scratchpad
     bindsym Escape          mode "default"
 }
 
 mode "go" {
     # Repeating
-    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
+    bindsym $win+1          exec $script/i3-repeater.sh "$counter" "1" "$last_action"
+    bindsym $win+2          exec $script/i3-repeater.sh "$counter" "2" "$last_action"
+    bindsym $win+3          exec $script/i3-repeater.sh "$counter" "3" "$last_action"
+    bindsym $win+4          exec $script/i3-repeater.sh "$counter" "4" "$last_action"
+    bindsym $win+5          exec $script/i3-repeater.sh "$counter" "5" "$last_action"
+    bindsym $win+6          exec $script/i3-repeater.sh "$counter" "6" "$last_action"
+    bindsym $win+7          exec $script/i3-repeater.sh "$counter" "7" "$last_action"
+    bindsym $win+8          exec $script/i3-repeater.sh "$counter" "8" "$last_action"
+    bindsym $win+9          exec $script/i3-repeater.sh "$counter" "9" "$last_action"
     # Keys
     bindsym $win+s         mode "go_workspace"
     #bindsym $win+w         
-    bindsym $win+g         mode "default", workspace number 1
-    bindsym $win+m         mode "default", exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: ' 
-    bindsym $win+f         mode "default", focus mode_toggle 
-    bindsym $win+u         mode "default", [ urgent=latest ] focus
-    bindsym $win+p         mode "default", focus prev 
-    bindsym $win+n         mode "default", focus next 
-    bindsym $win+Shift+n   mode "default", exec dunstctl context
-    bindsym $win+h         mode "default", focus left 
-    bindsym $win+j         mode "default", focus down 
-    bindsym $win+k         mode "default", focus up 
-    bindsym $win+l         mode "default", focus right 
+    bindsym $win+g         mode "default"; workspace number 1
+    bindsym $win+m         mode "default"; exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: ' 
+    bindsym $win+f         mode "default"; focus mode_toggle 
+    bindsym $win+u         mode "default"; [ urgent=latest ] focus
+    bindsym $win+p         mode "default"; focus prev 
+    bindsym $win+n         mode "default"; focus next 
+    bindsym $win+Shift+n   mode "default"; exec dunstctl context
+    bindsym $win+h         mode "default"; focus left 
+    bindsym $win+j         mode "default"; focus down 
+    bindsym $win+k         mode "default"; focus up 
+    bindsym $win+l         mode "default"; focus right 
     # Same with arrows
-    bindsym $win+Left      mode "default", focus left 
-    bindsym $win+Down      mode "default", focus down 
-    bindsym $win+Up        mode "default", focus up 
-    bindsym $win+Right     mode "default", focus right 
+    bindsym $win+Left      mode "default"; focus left 
+    bindsym $win+Down      mode "default"; focus down 
+    bindsym $win+Up        mode "default"; focus up 
+    bindsym $win+Right     mode "default"; focus right 
     bindsym Escape         mode "default"
 }
 
 mode "open" {
     # Repeating
-    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
+    bindsym $win+1         exec $script/i3-repeater.sh "$counter" "1" "$last_action";
+    bindsym $win+2         exec $script/i3-repeater.sh "$counter" "2" "$last_action";
+    bindsym $win+3         exec $script/i3-repeater.sh "$counter" "3" "$last_action";
+    bindsym $win+4         exec $script/i3-repeater.sh "$counter" "4" "$last_action";
+    bindsym $win+5         exec $script/i3-repeater.sh "$counter" "5" "$last_action";
+    bindsym $win+6         exec $script/i3-repeater.sh "$counter" "6" "$last_action";
+    bindsym $win+7         exec $script/i3-repeater.sh "$counter" "7" "$last_action";
+    bindsym $win+8         exec $script/i3-repeater.sh "$counter" "8" "$last_action";
+    bindsym $win+9         exec $script/i3-repeater.sh "$counter" "9" "$last_action";
     # Programs to open
-    bindsym $win+t         mode "default", exec "$term" 
-    bindsym $win+o         mode "default", exec "$launcher" 
-    bindsym $win+f         mode "default", exec "$filemanager" 
-    bindsym $win+b         mode "default", exec "$browser" 
-    bindsym $win+m         mode "default", exec "$launcher" 
+    bindsym $win+b         mode "default"; exec "$browser" 
+    bindsym $win+f         mode "default"; exec "$filemanager" 
+    bindsym $win+Shift+f   mode "default"; exec $script/i3-file.sh open
+    bindsym $win+m         mode "default"; exec "$launcher" 
+    bindsym $win+n         mode "default"; exec dunstctl history-pop
+    bindsym $win+o         mode "default"; exec "$launcher" 
+    bindsym $win+t         mode "default"; exec "$term" 
     bindsym Escape         mode "default"
     }
 
 mode "system" {
     # Repeating
-    bindsym $win+1 exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2 exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3 exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4 exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5 exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6 exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7 exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8 exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9 exec $script/i3-repeater.sh 9 $counter
+    bindsym $win+1         exec $script/i3-repeater.sh "$counter" "1" "$last_action"
+    bindsym $win+2         exec $script/i3-repeater.sh "$counter" "2" "$last_action"
+    bindsym $win+3         exec $script/i3-repeater.sh "$counter" "3" "$last_action"
+    bindsym $win+4         exec $script/i3-repeater.sh "$counter" "4" "$last_action"
+    bindsym $win+5         exec $script/i3-repeater.sh "$counter" "5" "$last_action"
+    bindsym $win+6         exec $script/i3-repeater.sh "$counter" "6" "$last_action"
+    bindsym $win+7         exec $script/i3-repeater.sh "$counter" "7" "$last_action"
+    bindsym $win+8         exec $script/i3-repeater.sh "$counter" "8" "$last_action"
+    bindsym $win+9         exec $script/i3-repeater.sh "$counter" "9" "$last_action"
     # Keys
-    bindsym $win+m         mode "default", exec dunstctl context 
-    bindsym $win+h         mode "default", exec "$term htop"
-    bindsym $win+l         mode "default", exec "$locker" 
-    bindsym $win+r         mode "default", exec reboot
-    bindsym $win+p         mode "default", exec poweroff
-    bindsym $win+s         mode "sound"
     bindsym $win+b         mode "brightness"
+    bindsym $win+h         mode "default"; exec "$term htop"
+    bindsym $win+l         mode "default"; exec "$locker" 
+    bindsym $win+m         mode "default"; exec dunstctl context 
+    bindsym $win+p         mode "default"; exec poweroff
+    bindsym $win+r         mode "default"; exec reboot
+    bindsym $win+s         mode "sound"
     bindsym Escape         mode "default"
     }
 
 mode "workspAce" {
-    bindsym $win+1         mode "default", workspace number 1 
-    bindsym $win+2         mode "default", workspace number 2 
-    bindsym $win+3         mode "default", workspace number 3 
-    bindsym $win+4         mode "default", workspace number 4 
-    bindsym $win+5         mode "default", workspace number 5 
-    bindsym $win+6         mode "default", workspace number 6 
-    bindsym $win+7         mode "default", workspace number 7 
-    bindsym $win+8         mode "default", workspace number 8 
-    bindsym $win+9         mode "default", workspace number 9 
-    bindsym $win+0         mode "default", workspace number 0 
-    bindsym $win+a         mode "default", workspace number 1 
+    bindsym $win+1         mode "default"; workspace number 1 
+    bindsym $win+2         mode "default"; workspace number 2 
+    bindsym $win+3         mode "default"; workspace number 3 
+    bindsym $win+4         mode "default"; workspace number 4 
+    bindsym $win+5         mode "default"; workspace number 5 
+    bindsym $win+6         mode "default"; workspace number 6 
+    bindsym $win+7         mode "default"; workspace number 7 
+    bindsym $win+8         mode "default"; workspace number 8 
+    bindsym $win+9         mode "default"; workspace number 9 
+    bindsym $win+0         mode "default"; workspace number 0 
+    bindsym $win+a         mode "default"; workspace number 1 
 
-    bindsym $win+h         mode "default", workspace prev
+    bindsym $win+h         exec $script/i3-repeater.sh "$counter" "$last_action"; mode "default"; workspace prev
     #bindsym $win+j         mode "default"; workspace "1" 
     #bindsym $win+k         mode "default"; workspace "1" 
-    bindsym $win+l         mode "default", workspace next
+    bindsym $win+l         exec $script/i3-repeater.sh "$counter" "$last_action"; mode "default"; workspace next
     bindsym Escape         mode "default"
 }
 
@@ -259,33 +259,36 @@ mode "resize" {
     bindsym $win+8         exec $script/i3-resizer.sh 8 "$counter"
     bindsym $win+9         exec $script/i3-resizer.sh 9 "$counter"
     bindsym $win+0         exec $script/i3-resizer.sh 0 "$counter"
-    bindsym $win+h         mode "default", exec $script/i3-resizer.sh h "$counter"
-    bindsym $win+j         mode "default", exec $script/i3-resizer.sh j "$counter"
-    bindsym $win+k         mode "default", exec $script/i3-resizer.sh k "$counter"
-    bindsym $win+l         mode "default", exec $script/i3-resizer.sh l "$counter"
+    bindsym $win+h         mode "default"; exec $script/i3-resizer.sh h "$counter"
+    bindsym $win+j         mode "default"; exec $script/i3-resizer.sh j "$counter"
+    bindsym $win+k         mode "default"; exec $script/i3-resizer.sh k "$counter"
+    bindsym $win+l         mode "default"; exec $script/i3-resizer.sh l "$counter"
     bindsym Escape         mode "default"
     }
 
 mode "toggle" {
-    bindsym $win+Shift+l   mode "default", exec $script/layout_switch.sh 
+    bindsym $win+Shift+l   mode "default"; exec $script/layout_switch.sh 
     bindsym $win+n         mode "default"; exec dunstify "$( dunstctl is-paused | sed 's/false/Notifications disabled/' | sed 's/true/Notifications enabled/' )" && sleep 2 && dunstctl set-paused toggle 
-    bindsym $win+f         mode "default", floating     toggle 
-    bindsym $win+l         mode "default", layout       toggle tabbed split
-    bindsym $win+s         mode "default", split        toggle 
-    bindsym $win+Shift+s   mode "default", sticky       toggle 
-    bindsym $win+w         mode "default", fullscreen   toggle 
+    bindsym $win+f         mode "default"; floating     toggle 
+    bindsym $win+l         mode "default"; layout       toggle tabbed split
+    bindsym $win+s         mode "default"; split        toggle 
+    bindsym $win+Shift+s   mode "default"; sticky       toggle 
+    bindsym $win+w         mode "default"; fullscreen   toggle 
     bindsym Escape         mode "default"
 }
 
 mode "yank" {
-    bindsym $win+y         mode "default", exec scrot -p    --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
-    bindsym $win+w         mode "default", exec scrot -p -u --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
+    bindsym $win+y         mode "default"; exec scrot -p    --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
+    bindsym $win+w         mode "default"; exec scrot -p -u --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
+    bindsym $win+s         mode "default"; exec scrot -f --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
+    bindsym $win+t         mode "default"; exec ~/tester.sh
     bindsym Escape         mode "default"
 }
 
 mode "change" {
-    bindsym $win+Shift+l   mode "default", exec trans "$( xclip -o -selection clipboard )" | xclip -selection clipboard && notify-send "Translator" "Text has been translated"
-    bindsym $win+s         mode "default", split        toggle 
+    bindsym $win+Shift+l   mode "default"; exec trans "$( xclip -o -selection clipboard )" | xclip -selection clipboard && notify-send "Translator" "Text has been translated"
+    bindsym $win+s         mode "default"; split        toggle 
+    bindsym $win+Shift+f   mode "default"; exec $script/i3-file.sh edit
     bindsym Escape         mode "default"
 }
 
@@ -295,81 +298,83 @@ mode "change" {
 #=============================
 
 mode "go_workspace" {
-    bindsym $win+1         mode "default", workspace number 1 
-    bindsym $win+2         mode "default", workspace number 2 
-    bindsym $win+3         mode "default", workspace number 3 
-    bindsym $win+4         mode "default", workspace number 4 
-    bindsym $win+5         mode "default", workspace number 5 
-    bindsym $win+6         mode "default", workspace number 6 
-    bindsym $win+7         mode "default", workspace number 7 
-    bindsym $win+8         mode "default", workspace number 8 
-    bindsym $win+9         mode "default", workspace number 9 
-    bindsym $win+0         mode "default", workspace number 0 
+    bindsym $win+1         mode "default"; workspace number 1 
+    bindsym $win+2         mode "default"; workspace number 2 
+    bindsym $win+3         mode "default"; workspace number 3 
+    bindsym $win+4         mode "default"; workspace number 4 
+    bindsym $win+5         mode "default"; workspace number 5 
+    bindsym $win+6         mode "default"; workspace number 6 
+    bindsym $win+7         mode "default"; workspace number 7 
+    bindsym $win+8         mode "default"; workspace number 8 
+    bindsym $win+9         mode "default"; workspace number 9 
+    bindsym $win+0         mode "default"; workspace number 0 
     bindsym Escape         mode "default"
 }
 
 mode "move_workspace" {
-    bindsym $win+1         mode "default", move container to workspace number 1 
-    bindsym $win+2         mode "default", move container to workspace number 2 
-    bindsym $win+3         mode "default", move container to workspace number 3 
-    bindsym $win+4         mode "default", move container to workspace number 4 
-    bindsym $win+5         mode "default", move container to workspace number 5 
-    bindsym $win+6         mode "default", move container to workspace number 6 
-    bindsym $win+7         mode "default", move container to workspace number 7 
-    bindsym $win+8         mode "default", move container to workspace number 8 
-    bindsym $win+9         mode "default", move container to workspace number 9 
-    bindsym $win+0         mode "default", move container to workspace number 0 
+    bindsym $win+1         mode "default"; move container to workspace number 1 
+    bindsym $win+2         mode "default"; move container to workspace number 2 
+    bindsym $win+3         mode "default"; move container to workspace number 3 
+    bindsym $win+4         mode "default"; move container to workspace number 4 
+    bindsym $win+5         mode "default"; move container to workspace number 5 
+    bindsym $win+6         mode "default"; move container to workspace number 6 
+    bindsym $win+7         mode "default"; move container to workspace number 7 
+    bindsym $win+8         mode "default"; move container to workspace number 8 
+    bindsym $win+9         mode "default"; move container to workspace number 9 
+    bindsym $win+0         mode "default"; move container to workspace number 0 
+    bindsym $win+a         mode "default"; move container to workspace number 1 
+    bindsym $win+Shift+a   mode "default"; move container to workspace number 0 
     bindsym Escape         mode "default"
 }
 
 mode "player" {
-    bindsym $win+p         mode "default", exec mpc toggle
-    bindsym $win+Shift+s   mode "default", exec mpc stop
-    bindsym $win+c         mode "default", exec mpc clear
-    bindsym $win+j         mode "default", exec mpc next
-    bindsym $win+k         mode "default", exec mpc prev
-    bindsym $win+r         mode "default", exec mpc random && dunstify -r 29 "$( mpc status | grep -o "random: on\|random: off")"
-    bindsym $win+Shift+r   mode "default", exec mpc repeat && dunstify -r 29 "$( mpc status | grep -o "repeat: on\|repeat: off")"
-    bindsym $win+s         mode "default", exec mpc single && dunstify -r 29 "$( mpc status | grep -o "single: on\|single: off")"
-    bindsym $win+m         mode "default", exec mpc shuffle
+    bindsym $win+p         mode "default"; exec mpc toggle
+    bindsym $win+Shift+s   mode "default"; exec mpc stop
+    bindsym $win+c         mode "default"; exec mpc clear
+    bindsym $win+j         mode "default"; exec mpc next
+    bindsym $win+k         mode "default"; exec mpc prev
+    bindsym $win+r         mode "default"; exec mpc random && dunstify -r 29 "$( mpc status | grep -o "random: on\|random: off")"
+    bindsym $win+Shift+r   mode "default"; exec mpc repeat && dunstify -r 29 "$( mpc status | grep -o "repeat: on\|repeat: off")"
+    bindsym $win+s         mode "default"; exec mpc single && dunstify -r 29 "$( mpc status | grep -o "single: on\|single: off")"
+    bindsym $win+m         mode "default"; exec mpc shuffle
     # Find the song
-    bindsym $win+f         mode "default", exec $term --title dialog -e $script/player_fzf_selector.sh
+    bindsym $win+f         mode "default"; exec $term --title dialog -e $script/player_fzf_selector.sh
     # Load playlist
-    bindsym $win+l         mode "default", exec mpc load "$( mpc lsplaylists | dmenu -i -l 10)"
+    bindsym $win+l         mode "default"; exec mpc load "$( mpc lsplaylists | dmenu -i -l 10)"
     bindsym Escape         mode "default"
 }
 
 
 mode "sound" {
     # repeating
-    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
-    bindsym $win+a         mode "default", exec $volume_up   && $volume_get > "$notify_bar"
-    bindsym $win+d         mode "default", exec $volume_down && $volume_get > "$notify_bar"
-    bindsym $win+m         mode "default", exec $volume_mute && $volume_get_mute > "$notify_bar" 
+    bindsym $win+1         exec $script/i3-repeater.sh "$counter" "1" "$last_action"
+    bindsym $win+2         exec $script/i3-repeater.sh "$counter" "2" "$last_action"
+    bindsym $win+3         exec $script/i3-repeater.sh "$counter" "3" "$last_action"
+    bindsym $win+4         exec $script/i3-repeater.sh "$counter" "4" "$last_action"
+    bindsym $win+5         exec $script/i3-repeater.sh "$counter" "5" "$last_action"
+    bindsym $win+6         exec $script/i3-repeater.sh "$counter" "6" "$last_action"
+    bindsym $win+7         exec $script/i3-repeater.sh "$counter" "7" "$last_action"
+    bindsym $win+8         exec $script/i3-repeater.sh "$counter" "8" "$last_action"
+    bindsym $win+9         exec $script/i3-repeater.sh "$counter" "9" "$last_action"
+    bindsym $win+a         mode "default"; exec $volume_up   && $volume_get > "$notify_bar"
+    bindsym $win+d         mode "default"; exec $volume_down && $volume_get > "$notify_bar"
+    bindsym $win+m         mode "default"; exec $volume_mute && $volume_get_mute > "$notify_bar" 
     bindsym Escape         mode "default"
 }
 
 mode "brightness" {
     # repeating
-    bindsym $win+1         exec $script/i3-repeater.sh 1 $counter
-    bindsym $win+2         exec $script/i3-repeater.sh 2 $counter
-    bindsym $win+3         exec $script/i3-repeater.sh 3 $counter
-    bindsym $win+4         exec $script/i3-repeater.sh 4 $counter
-    bindsym $win+5         exec $script/i3-repeater.sh 5 $counter
-    bindsym $win+6         exec $script/i3-repeater.sh 6 $counter
-    bindsym $win+7         exec $script/i3-repeater.sh 7 $counter
-    bindsym $win+8         exec $script/i3-repeater.sh 8 $counter
-    bindsym $win+9         exec $script/i3-repeater.sh 9 $counter
-    bindsym $win+a         mode "default", exec $brightness_up   && $brightness_get > "$notify_bar"
-    bindsym $win+d         mode "default", exec $brightness_down && $brightness_get > "$notify_bar"
+    bindsym $win+1         exec $script/i3-repeater.sh "$counter" "1" "$last_action"
+    bindsym $win+2         exec $script/i3-repeater.sh "$counter" "2" "$last_action"
+    bindsym $win+3         exec $script/i3-repeater.sh "$counter" "3" "$last_action"
+    bindsym $win+4         exec $script/i3-repeater.sh "$counter" "4" "$last_action"
+    bindsym $win+5         exec $script/i3-repeater.sh "$counter" "5" "$last_action"
+    bindsym $win+6         exec $script/i3-repeater.sh "$counter" "6" "$last_action"
+    bindsym $win+7         exec $script/i3-repeater.sh "$counter" "7" "$last_action"
+    bindsym $win+8         exec $script/i3-repeater.sh "$counter" "8" "$last_action"
+    bindsym $win+9         exec $script/i3-repeater.sh "$counter" "9" "$last_action"
+    bindsym $win+a         mode "default"; exec $brightness_up   && $brightness_get > "$notify_bar"
+    bindsym $win+d         mode "default"; exec $brightness_down && $brightness_get > "$notify_bar"
     bindsym Escape         mode "default"
 }
 
