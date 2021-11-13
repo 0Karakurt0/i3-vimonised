@@ -1,21 +1,51 @@
-#! /bin/bash
-echo "Installation path (~/.config/i3 by default, press enter to skip):"
-read installdir
-[ $installdir ] || installdir="$HOME/.config/i3"
-echo "Installing to $installdir"
-if [ -d $installdir ]; then
-    echo "hi" #mv $installdir $installdir.old && echo "Backed up older config"
+#! /bin/sh
+src_dir="$( dirname "$( realpath $0)")"
+if [ -n "$XDG_CONFIG_DIR" ]; then
+    echo "-> \$XDG_CONFIG_DIR was found"
+    inst_dir="$XDG_CONFIG_DIR/i3"
 else
-    mkdir --parents $installdir && echo "Created directory $(basename $installdir)"
+    echo "-> ~/.config/i3 by default, press enter to accept"
+    echo -n "Config directory:"
+    read inst_dir
+    [ "$inst_dir" ] || inst_dir="$HOME/.config/i3"
+fi
+echo "Installing to $inst_dir"
+if [ -d $inst_dir ]; then
+    echo -n "Directory exists, backing up..." 
+    mv -i "$inst_dir" "$inst_dir.old" && echo "Done"
+fi
+mkdir --parents "$inst_dir" && echo "Created path $inst_dir"
+
+if ! { echo "$PATH" | grep -q "$HOME/.local/bin"; }; then
+    echo "-> ~./local/bin was not found in \$PATH!"
+    echo -n "Continue? [y|N] "
+    read answ_scr_pth
+    case "$answ_scr_pth" in
+        y)        ;;
+        n) exit 1 ;;
+        *) exit 1 ;;
+    esac
 fi
 
-echo "Link to git files?[Y/n]"
-read answ
-echo $answ
-case $answ in
-    y) echo "yes" ;;
-    n) echo "no" ;;
+echo "Link config to git files?[y/n]"
+read answ_config
+echo "Link scripts to git files?[y/n]"
+read answ_scripts
+
+case "$answ_config" in
+    y) echo -n "Linking config..."
+        ln --symbolic "$src_dir/config" "$inst_dir/config" && echo "Done";;
+    n) echo -n "Copying config..."
+        cp --interactive "$src_dir/config" "$inst_dir/config" && echo "Done";;
     *) exit 1 ;;
 esac
-#cp --interactive --recursive --target-directory=$installdir $workdir/config $workdir/scripts ; && \ 
+
+
+case "$answ_scripts" in
+    3-msg -t get_tree| jq --compact-output -Mr  ".. | objects | select(.focused == true) |.window_properties| [.instance, .title] | @tsv"    y) echo -n "Linking scripts..."
+        ln --symbolic --target-directory="$HOME/.local/bin" $src_dir/scripts/* && echo "Done";;
+    n) echo -n "Copying scripts..."
+        cp --interactive $src_dir/scripts/* "$HOME/.local/bin" && echo "Done";;
+    *) exit 1 ;;
+esac
 echo "Done"
