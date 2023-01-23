@@ -22,18 +22,14 @@ set $volume_get_mute              pamixer --get-mute && echo 0
 set $brightness_up                light -A 5
 set $brightness_down              light -U 5
 set $brightness_get               light -G | cut -d'.' -f1
-# You also need to customize player mode (line 267) if you're not using mpc
-# set $current_workspace            i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name' 
 #============================
 
 #======== Autostart =========
-exec                              kotatogram-desktop
-exec                              "$browser"
+#exec                              "$browser"
 #============================
 
 #===== Initialization =======
 exec_always --no-startup-id       $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id       dunst
 exec_always --no-startup-id       $script/launcher.sh "$env"
 #============================
 
@@ -44,14 +40,13 @@ for_window [window_role="pop-up"     ] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [   con_mark="dropdown"   ] sticky   enable
 
-assign [instance="kotatogram-desktop"] workspace number 0
-assign [instance="$browser"          ] workspace number 3
+#assign [instance="$browser"          ] workspace number 3
 
 floating_modifier $win
-default_border pixel 2
-gaps inner 4
-smart_gaps true
-smart_borders on
+#default_border pixel 2
+#gaps inner 4
+#smart_gaps true
+#smart_borders on
 #============================
 
 #====== Starting keys ========
@@ -98,12 +93,12 @@ bindsym $win+0                   workspace number 0
 #=============================
 
 #======= System keys ========
-bindsym XF86AudioRaiseVolume exec pamixer -ui 5 && pamixer --get-volume > "$notify_bar"
-bindsym XF86AudioLowerVolume exec pamixer -ud 5 && pamixer --get-volume > "$notify_bar"
-bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > "$notify_bar" ) || pamixer --get-volume > "$notify_bar"
-bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > "$notify_bar"
-bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > "$notify_bar"
-bindsym Print exec scrot --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
+#bindsym XF86AudioRaiseVolume exec pamixer -ui 5 && pamixer --get-volume > "$notify_bar"
+#bindsym XF86AudioLowerVolume exec pamixer -ud 5 && pamixer --get-volume > "$notify_bar"
+#bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > "$notify_bar" ) || pamixer --get-volume > "$notify_bar"
+#bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > "$notify_bar"
+#bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > "$notify_bar"
+#bindsym Print exec scrot --exec 'xclip -selection clipboard $f -t image/png' $HOME/Images/screenshots/'%Y-%m-%d_$wx$h.png'
 #============================
 
 #======= Main modes ==========
@@ -194,8 +189,6 @@ mode "open" {
     bindsym $win+6         exec $script/i3-repeater.sh "$counter" "6" "$last_action";
     bindsym $win+7         exec $script/i3-repeater.sh "$counter" "7" "$last_action";
     bindsym $win+8         exec $script/i3-repeater.sh "$counter" "8" "$last_action";
-    bindsym $win+9         exec $script/i3-repeater.sh "$counter" "9" "$last_action";
-    # Programs to open
     bindsym $win+b         mode "default"; exec "$browser" 
     bindsym $win+f         mode "default"; exec "$filemanager" 
     bindsym $win+Shift+f   mode "default"; exec $script/i3-file.sh open
@@ -288,7 +281,7 @@ mode "yank" {
 mode "change" {
     bindsym $win+Shift+l   mode "default"; exec trans "$( xclip -o -selection clipboard )" | xclip -selection clipboard && notify-send "Translator" "Text has been translated"
     bindsym $win+s         mode "default"; split        toggle 
-    bindsym $win+Shift+f   mode "default"; exec $script/i3-file.sh edit
+    bindsym $win+f         mode "default"; exec $script/i3-file.sh edit
     bindsym Escape         mode "default"
 }
 
