@@ -7,8 +7,8 @@ I believe there is something to it, and that is what keeps this project going.
 Now this is my starting point for Devim (read like devil, pun intended) - Desktop Environment with Vim In Mind, who's optimal goal would be to apply vim's way for "speaking to computer" to everything I will get my hands onto.
 
 ## Vim Philosophy
-> The "Zen" of vi is that you're speaking a language
-                                Jim Dennis
+> __The "Zen" of vi is that you're speaking a language__ - Jim Dennis
+
 Many applications claim to be vim-like after just adding hjkl and that sickens me. One of the intentions behind i3-vimonised was to have an example I can point to, where "vim-like" actually means anything. And it also is a part of my own jorney to explore and learn vi ways.
 What's wrong with just hjkl? That it is misleading. If a person knows vim enough, hearing "vim-like" establishes an expectation of suttle interconnection of all hotkeys in an application that has some sort of a meaning behind it, that you can *understand* and not learn. A *language* to be spoken to computer, sort of. 
 I won't go deeper into that here, but I strongly recommend a talk "Mastering the Vim Language" by Chris Toomey.
